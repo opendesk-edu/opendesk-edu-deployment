@@ -1,0 +1,30 @@
+# SPDX-FileCopyrightText: 2026 openDesk Edu Contributors
+# SPDX-License-Identifier: Apache-2.0
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-drawio
+  labels:
+    drawio/server: "true"
+{{ include "drawio.labels" . | nindent 4 }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      drawio/server: "true"
+{{ include "drawio.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        drawio/server: "true"
+{{ include "drawio.labels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: drawio
+          image: {{ .Values.drawio.image }}:{{ .Values.drawio.tag }}
+          ports:
+            - containerPort: {{ .Values.drawio.port }}
+          securityContext:
+            runAsUser: 0
+            runAsGroup: 0
+          resources: {{ .Values.drawio.resources | toYaml | nindent 12 }}

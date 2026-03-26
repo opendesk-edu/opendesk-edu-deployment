@@ -1,0 +1,17 @@
+# SPDX-FileCopyrightText: 2026 openDesk Edu Contributors
+# SPDX-License-Identifier: Apache-2.0
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ .Release.Name }}-zammad-data
+  labels:
+{{ include "zammad.labels" . | nindent 4 }}
+spec:
+  accessModes:
+    - {{ .Values.zammad.volumes.data.accessMode }}
+  resources:
+    requests:
+      storage: {{ .Values.zammad.volumes.data.size }}
+  {{- if .Values.zammad.volumes.data.storageClass }}
+  storageClassName: {{ .Values.zammad.volumes.data.storageClass }}
+  {{- end }}

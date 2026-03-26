@@ -154,11 +154,21 @@
         "Wintersemester",
         "Zenodo",
         "Beurlaubung",
+        "BookStack",
         "Bundesdruckerei",
         "domainkey",
+        "drawio",
+        "Etherpad",
+        "Excalidraw",
+        "LimeSurvey",
         "Notenauszug",
         "publiccode",
-        "trufflesecurity"
+        "trufflesecurity",
+        "Zammad",
+        "Planka",
+        "Helpdesk",
+        "self-service-password",
+        "ssp"
     ],
     "ignoreWords": [],
     "import": []

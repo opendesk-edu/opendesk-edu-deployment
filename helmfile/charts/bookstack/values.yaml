@@ -1,0 +1,62 @@
+# SPDX-FileCopyrightText: 2026 openDesk Edu Contributors
+# SPDX-License-Identifier: Apache-2.0
+
+bookstack:
+  image: linuxserver/bookstack
+  tag: latest
+  port: 80
+
+  # Database configuration
+  db:
+    host: "" # Will be set by mariadb chart if left empty
+    port: 3306
+    user: bookstack
+    password: "" # Overridden by mariadb.auth.password if not empty
+    name: bookstack
+
+  # Persistence configuration
+  volumes:
+    uploads:
+      size: 1Gi
+      accessMode: ReadWriteMany
+      # storageClass: ""
+
+  # Resource configuration
+  resources:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
+
+  # Replica count
+  replicas: 1
+
+extraVolumes: []
+extraVolumeMounts: []
+
+ingress:
+  enabled: true
+  annotations: {}
+  hosts:
+    - host: wiki.opendesk.example.com
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls:
+    - secretName: bookstack-tls
+      hosts:
+        - wiki.opendesk.example.com
+
+mariadb:
+  enabled: true
+  auth:
+    username: bookstack
+    password: ""
+    database: bookstack
+  primary:
+    persistence:
+      enabled: true
+      size: 8Gi
+      accessMode: ReadWriteOnce

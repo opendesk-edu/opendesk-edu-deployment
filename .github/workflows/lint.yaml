@@ -41,6 +41,14 @@ jobs:
           - helmfile/charts/moodle
           - helmfile/charts/bigbluebutton
           - helmfile/charts/opencloud
+          - helmfile/charts/etherpad
+          - helmfile/charts/bookstack
+          - helmfile/charts/planka
+          - helmfile/charts/zammad
+          - helmfile/charts/limesurvey
+          - helmfile/charts/drawio
+          - helmfile/charts/excalidraw
+          - helmfile/charts/self-service-password
     steps:
       - uses: actions/checkout@v4
 

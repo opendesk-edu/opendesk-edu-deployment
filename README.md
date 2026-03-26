@@ -74,6 +74,19 @@ core services universities need — all integrated with openDesk's existing Keyc
 | 📖 **Learning Management** | [ILIAS](https://www.ilias.de/) | ✅ Stable | Full-featured LMS with SAML SSO — courses, SCORM, assessments, forums |
 | 📖 **Learning Management** | [Moodle](https://moodle.org/) | 🔄 Beta | LMS with Shibboleth auth — plugins, gradebook, workshops |
 
+### Additional education tools 🎓
+
+| Service | Component | Status | Description |
+|:--------|:----------|:------:|:------------|
+| 📝 **Collaborative Editing** | [Etherpad](https://etherpad.org/) | ✅ Stable | Real-time collaborative document editor — meeting notes, workshops, live editing |
+| 📚 **Knowledge Base** | [BookStack](https://www.bookstackapp.com/) | ✅ Stable | Wiki with book/chapter structure — course materials, SOPs, documentation |
+| 📋 **Project Management** | [Planka](https://planka.app/) | ✅ Stable | Kanban boards with OIDC — student projects, research planning |
+| 🎫 **Service Desk** | [Zammad](https://zammad.com/) | ✅ Stable | Helpdesk with SAML — IT support, multi-channel (email, chat, phone) |
+| 📊 **Surveys** | [LimeSurvey](https://www.limesurvey.org/) | ✅ Stable | Survey platform — course evaluations, academic research |
+| 🔑 **Password Self-Service** | [LTB SSP](https://ltb-project.org/) | ✅ Stable | LDAP password reset — reduces helpdesk tickets |
+| 📐 **Diagramming** | [Draw.io](https://www.drawio.com/) | ✅ Stable | Architecture diagrams, flowcharts, UML — export to PDF/VSDX |
+| ✏️ **Whiteboarding** | [Excalidraw](https://excalidraw.com/) | ✅ Stable | Hand-drawn sketches, brainstorming — lightweight and fast |
+
 ### Alternative components 🔄
 
 These can be used **instead of** their openDesk CE counterparts. Enable one or the other — not both.
@@ -121,6 +134,14 @@ drop-in alternatives, not replacements. This is a **superset** of openDesk CE, n
 | 📖 **LMS** | **Moodle** | GPL-3.0 | [4.4](https://moodle.org/release/) | [Docs](https://docs.moodle.org/) |
 | 🎥 **Lectures** | **BigBlueButton** (↔ Jitsi) | LGPL-3.0 | [2.7](https://github.com/bigbluebutton/bigbluebutton/releases) | [Docs](https://docs.bigbluebutton.org/) |
 | ☁️ **Files** | **OpenCloud** (↔ Nextcloud) | Apache-2.0 | [4.0.3](https://github.com/opencloudeu/opencloud/releases) | [Docs](https://docs.opencloud.eu/) |
+| 📝 **Collab Editing** | **Etherpad** | Apache-2.0 | [1.9.9](https://github.com/ether/etherpad-lite/releases) | [Docs](https://etherpad.org/doc/) |
+| 📚 **Wiki** | **BookStack** | MIT | [26.03](https://github.com/BookStackApp/BookStack/releases) | [Docs](https://www.bookstackapp.com/docs/) |
+| 📋 **Kanban** | **Planka** | AGPL-3.0 | [2.1.0](https://github.com/plankanban/planka/releases) | [Docs](https://docs.planka.app/) |
+| 🎫 **Helpdesk** | **Zammad** | AGPL-3.0 | [7.0](https://github.com/zammad/zammad/releases) | [Docs](https://docs.zammad.com/) |
+| 📊 **Surveys** | **LimeSurvey** | GPL-2.0 | [6.6](https://github.com/LimeSurvey/LimeSurvey/releases) | [Docs](https://www.limesurvey.org/manual/) |
+| 🔑 **Password Reset** | **LTB SSP** | GPL-3.0 | [1.7](https://github.com/ltb-project/self-service-password/releases) | [Docs](https://self-service-password.readthedocs.io/) |
+| 📐 **Diagrams** | **Draw.io** | Apache-2.0 | [29.6](https://github.com/jgraph/drawio/releases) | [Docs](https://www.drawio.com/doc/) |
+| ✏️ **Whiteboard** | **Excalidraw** | MIT | [latest](https://github.com/excalidraw/excalidraw/releases) | [Docs](https://docs.excalidraw.com/) |
 
 ---
 

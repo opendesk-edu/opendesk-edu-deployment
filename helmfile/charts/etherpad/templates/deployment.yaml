@@ -1,0 +1,60 @@
+# SPDX-FileCopyrightText: 2026 openDesk Edu Contributors
+# SPDX-License-Identifier: Apache-2.0
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-etherpad
+  labels:
+{{ include "etherpad.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicas }}
+  selector:
+    matchLabels:
+      etherpad/server: "true"
+{{ include "etherpad.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        etherpad/server: "true"
+{{ include "etherpad.labels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: etherpad
+          image: {{ .Values.etherpad.image }}:{{ .Values.etherpad.tag }}
+          securityContext:
+            runAsUser: 0
+            runAsGroup: 0
+          ports:
+            - containerPort: {{ .Values.etherpad.port }}
+          env:
+            - name: DB_HOST
+              value: {{ include "etherpad.dbHost" . | quote }}
+            - name: DB_PORT
+              value: {{ .Values.etherpad.db.port | quote }}
+            - name: DB_USER
+              value: {{ include "etherpad.dbUser" . | quote }}
+            - name: DB_PASS
+              value: {{ include "etherpad.dbPassword" . | quote }}
+            - name: DB_NAME
+              value: {{ include "etherpad.dbName" . | quote }}
+            - name: DB_TYPE
+              value: "postgres"
+            - name: TRUST_PROXY
+              value: "true"
+          volumeMounts:
+            - name: etherpad-data
+              mountPath: /opt/etherpad/var
+{{- if .Values.extraVolumeMounts }}
+{{- toYaml .Values.extraVolumeMounts | nindent 12 }}
+{{- end }}
+          resources: {{ .Values.etherpad.resources | toYaml | nindent 12 }}
+      volumes:
+        - name: etherpad-data
+          persistentVolumeClaim:
+            claimName: {{ .Release.Name }}-etherpad-data
+        - name: etherpad-config
+          configMap:
+            name: {{ .Release.Name }}-etherpad-config
+{{- if .Values.extraVolumes }}
+{{- toYaml .Values.extraVolumes | nindent 8 }}
+{{- end }}

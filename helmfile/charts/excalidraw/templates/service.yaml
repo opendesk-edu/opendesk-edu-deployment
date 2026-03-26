@@ -1,0 +1,18 @@
+# SPDX-FileCopyrightText: 2026 openDesk Edu Contributors
+# SPDX-License-Identifier: Apache-2.0
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-excalidraw
+  labels:
+    excalidraw/server: "true"
+{{ include "excalidraw.labels" . | nindent 4 }}
+spec:
+  selector:
+    excalidraw/server: "true"
+{{ include "excalidraw.selectorLabels" . | nindent 4 }}
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: {{ .Values.excalidraw.port }}
+  type: ClusterIP

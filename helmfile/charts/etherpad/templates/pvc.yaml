@@ -1,0 +1,17 @@
+# SPDX-FileCopyrightText: 2026 openDesk Edu Contributors
+# SPDX-License-Identifier: Apache-2.0
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ .Release.Name }}-etherpad-data
+  labels:
+{{ include "etherpad.labels" . | nindent 4 }}
+spec:
+  accessModes:
+    - {{ .Values.etherpad.volumes.data.accessMode }}
+  resources:
+    requests:
+      storage: {{ .Values.etherpad.volumes.data.size }}
+  {{- if .Values.etherpad.volumes.data.storageClass }}
+  storageClassName: {{ .Values.etherpad.volumes.data.storageClass }}
+  {{- end }}

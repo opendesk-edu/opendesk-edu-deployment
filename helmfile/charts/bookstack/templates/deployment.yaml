@@ -1,0 +1,71 @@
+# SPDX-FileCopyrightText: 2026 openDesk Edu Contributors
+# SPDX-License-Identifier: Apache-2.0
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-bookstack
+  labels:
+{{ include "bookstack.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.bookstack.replicas }}
+  selector:
+    matchLabels:
+      bookstack/server: "true"
+{{ include "bookstack.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        bookstack/server: "true"
+{{ include "bookstack.labels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: bookstack
+          image: {{ .Values.bookstack.image }}:{{ .Values.bookstack.tag }}
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsGroup: 33
+            runAsNonRoot: true
+            runAsUser: 33
+            seLinuxOptions: {}
+            seccompProfile:
+              type: RuntimeDefault
+          ports:
+            - containerPort: {{ .Values.bookstack.port }}
+          env:
+            - name: APP_URL
+              value: "https://{{ (index .Values.ingress.hosts 0).host }}"
+            - name: APP_ENV
+              value: "production"
+            - name: DB_HOST
+              value: {{ include "bookstack.dbHost" . | quote }}
+            - name: DB_PORT
+              value: {{ include "bookstack.dbPort" . | quote }}
+            - name: DB_USER
+              value: {{ include "bookstack.dbUser" . | quote }}
+            - name: DB_PASS
+              value: {{ include "bookstack.dbPassword" . | quote }}
+            - name: DB_DATABASE
+              value: {{ include "bookstack.dbName" . | quote }}
+          volumeMounts:
+            - name: bookstack-uploads
+              mountPath: /config
+{{- if .Values.extraVolumeMounts }}
+{{- toYaml .Values.extraVolumeMounts | nindent 12 }}
+{{- end }}
+          resources: {{ .Values.bookstack.resources | toYaml | nindent 12 }}
+      securityContext:
+        sysctls:
+          - name: net.ipv4.ip_unprivileged_port_start
+            value: "0"
+      volumes:
+        - name: bookstack-uploads
+          persistentVolumeClaim:
+            claimName: {{ .Release.Name }}-bookstack-uploads
+{{- if .Values.extraVolumes }}
+{{- toYaml .Values.extraVolumes | nindent 8 }}
+{{- end }}

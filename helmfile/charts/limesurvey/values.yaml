@@ -1,0 +1,56 @@
+# SPDX-FileCopyrightText: 2026 openDesk Edu Contributors
+# SPDX-License-Identifier: Apache-2.0
+limesurvey:
+  image: martialblog/limesurvey
+  tag: latest
+  port: 80
+  db:
+    host: ""
+    port: 3306
+    user: limesurvey
+    password: ""
+    name: limesurvey
+  tablePrefix: "lime_"
+  siteName: "LimeSurvey"
+  adminName: "admin"
+  adminEmail: "admin@opendesk.example.com"
+  timezone: Europe/Berlin
+  volumes:
+    upload:
+      size: 1Gi
+      accessMode: ReadWriteMany
+  resources:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
+
+extraVolumes: []
+extraVolumeMounts: []
+
+ingress:
+  enabled: true
+  annotations: {}
+  hosts:
+    - host: survey.opendesk.example.com
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - secretName: limesurvey-tls
+      hosts:
+        - survey.opendesk.example.com
+
+mariadb:
+  enabled: true
+  auth:
+    username: limesurvey
+    password: ""
+    rootPassword: ""
+    database: limesurvey
+  primary:
+    persistence:
+      enabled: true
+      size: 5Gi

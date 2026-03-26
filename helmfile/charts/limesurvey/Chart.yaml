@@ -1,0 +1,13 @@
+# SPDX-FileCopyrightText: 2026 openDesk Edu Contributors
+# SPDX-License-Identifier: Apache-2.0
+apiVersion: v2
+appVersion: 6.6.6
+dependencies:
+- condition: mariadb.enabled
+  name: mariadb
+  repository: https://charts.bitnami.com/bitnami
+  version: 20.2.2
+description: A Helm chart for LimeSurvey
+name: limesurvey
+type: application
+version: 0.1.0

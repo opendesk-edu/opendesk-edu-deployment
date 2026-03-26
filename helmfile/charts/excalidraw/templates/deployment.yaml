@@ -1,0 +1,30 @@
+# SPDX-FileCopyrightText: 2026 openDesk Edu Contributors
+# SPDX-License-Identifier: Apache-2.0
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-excalidraw
+  labels:
+    excalidraw/server: "true"
+{{ include "excalidraw.labels" . | nindent 4 }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      excalidraw/server: "true"
+{{ include "excalidraw.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        excalidraw/server: "true"
+{{ include "excalidraw.labels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: excalidraw
+          image: {{ .Values.excalidraw.image }}:{{ .Values.excalidraw.tag }}
+          ports:
+            - containerPort: {{ .Values.excalidraw.port }}
+          securityContext:
+            runAsUser: 1000
+            runAsNonRoot: true
+          resources: {{ .Values.excalidraw.resources | toYaml | nindent 12 }}

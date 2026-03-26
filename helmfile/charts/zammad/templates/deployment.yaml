@@ -1,0 +1,63 @@
+# SPDX-FileCopyrightText: 2026 openDesk Edu Contributors
+# SPDX-License-Identifier: Apache-2.0
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-zammad
+  labels:
+{{ include "zammad.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.zammad.replicas }}
+  selector:
+    matchLabels:
+      zammad/server: "true"
+{{ include "zammad.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        zammad/server: "true"
+{{ include "zammad.labels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: zammad
+          image: {{ .Values.zammad.image }}:{{ .Values.zammad.tag }}
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsGroup: 1000
+            runAsNonRoot: true
+            runAsUser: 1000
+            seLinuxOptions: {}
+            seccompProfile:
+              type: RuntimeDefault
+          ports:
+            - containerPort: {{ .Values.zammad.port }}
+          env:
+            - name: RAILS_ENV
+              value: "production"
+            - name: RAILS_TRUSTED_PROXIES
+              value: "{{ .Release.Name }}-zammad-ingress"
+            - name: DATABASE_URL
+              value: "postgresql://{{ include "zammad.dbUser" . }}:{{ include "zammad.dbPassword" . }}@{{ include "zammad.dbHost" . }}:{{ .Values.zammad.db.port }}/{{ include "zammad.dbName" . }}"
+            - name: ELASTICSEARCH_URL
+              value: "http://{{ include "zammad.esHost" . }}:{{ include "zammad.esPort" . }}"
+          volumeMounts:
+            - name: zammad-data
+              mountPath: /opt/zammad
+{{- if .Values.extraVolumeMounts }}
+{{- toYaml .Values.extraVolumeMounts | nindent 12 }}
+{{- end }}
+          resources: {{ .Values.zammad.resources | toYaml | nindent 12 }}
+      securityContext:
+        fsGroup: 1000
+      volumes:
+        - name: zammad-data
+          persistentVolumeClaim:
+            claimName: {{ .Release.Name }}-zammad-data
+{{- if .Values.extraVolumes }}
+{{- toYaml .Values.extraVolumes | nindent 8 }}
+{{- end }}

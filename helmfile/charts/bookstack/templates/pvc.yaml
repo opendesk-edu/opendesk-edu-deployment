@@ -1,0 +1,17 @@
+# SPDX-FileCopyrightText: 2026 openDesk Edu Contributors
+# SPDX-License-Identifier: Apache-2.0
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ .Release.Name }}-bookstack-uploads
+  labels:
+{{ include "bookstack.labels" . | nindent 4 }}
+spec:
+  accessModes:
+    - {{ .Values.bookstack.volumes.uploads.accessMode }}
+  resources:
+    requests:
+      storage: {{ .Values.bookstack.volumes.uploads.size }}
+  {{- if .Values.bookstack.volumes.uploads.storageClass }}
+  storageClassName: {{ .Values.bookstack.volumes.uploads.storageClass }}
+  {{- end }}

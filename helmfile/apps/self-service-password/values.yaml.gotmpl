@@ -1,0 +1,43 @@
+# SPDX-FileCopyrightText: 2026 openDesk Edu Contributors
+# SPDX-License-Identifier: Apache-2.0
+---
+commonAnnotations:
+  {{ .Values.annotations.self-service-password.common | toYaml | nindent 2 }}
+
+selfServicePassword:
+  image: ltbproject/self-service-password
+  tag: latest
+  port: 80
+
+  resources:
+    requests:
+      cpu: 50m
+      memory: 64Mi
+    limits:
+      cpu: 200m
+      memory: 128Mi
+
+  ldap:
+    host: "ldap.opendesk.example.com"
+    port: "389"
+    baseDn: "dc=opendesk,dc=example,dc=com"
+    bindDn: "cn=admin,dc=opendesk,dc=example,dc=com"
+    startTls: "false"
+    networkTimeout: "2"
+
+ingress:
+  enabled: {{ .Values.ingress.enabled }}
+  className: "haproxy"
+  annotations:
+    {{ .Values.annotations.self-service-password.ingress | toYaml | nindent 4 }}
+    haproxy-ingress.github.io/ssl-redirect: "true"
+    haproxy-ingress.github.io/headers: "X-Forwarded-Host ssp.opendesk.example.com"
+  hosts:
+    - host: "ssp.opendesk.example.com"
+      paths:
+        - path: /
+          pathType: "ImplementationSpecific"
+  tls:
+    - secretName: "opendesk-certificates-tls"
+      hosts:
+        - "ssp.opendesk.example.com"

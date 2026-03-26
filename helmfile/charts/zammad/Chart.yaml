@@ -1,0 +1,17 @@
+# SPDX-FileCopyrightText: 2026 openDesk Edu Contributors
+# SPDX-License-Identifier: Apache-2.0
+apiVersion: v2
+appVersion: "7.0.0"
+dependencies:
+  - condition: postgresql.enabled
+    name: postgresql
+    repository: https://charts.bitnami.com/bitnami
+    version: 16.4.1
+  - condition: elasticsearch.enabled
+    name: elasticsearch
+    repository: https://charts.bitnami.com/bitnami
+    version: 21.4.1
+description: A Helm chart for Zammad service desk
+name: zammad
+type: application
+version: 0.1.0

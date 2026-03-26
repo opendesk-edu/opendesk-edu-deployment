@@ -1,0 +1,127 @@
+# SPDX-FileCopyrightText: 2026 openDesk Edu Contributors
+# SPDX-License-Identifier: Apache-2.0
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-limesurvey
+  labels:
+{{ include "limesurvey.labels" . | nindent 4 }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      limesurvey/server: "true"
+{{ include "limesurvey.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        limesurvey/server: "true"
+{{ include "limesurvey.labels" . | nindent 8 }}
+    spec:
+      initContainers:
+        - name: setup
+          image: {{ .Values.limesurvey.image }}:{{ .Values.limesurvey.tag }}
+          command: ["/bin/sh", "/setup.sh"]
+          env:
+              - name: LS_DB_HOST
+                value: {{ include "limesurvey.dbHost" . | quote }}
+              - name: LS_DB_PORT
+                value: {{ include "limesurvey.dbPort" . | quote }}
+              - name: LS_DB_USER
+                value: {{ include "limesurvey.dbUser" . | quote }}
+              - name: LS_DB_PASSWORD
+                value: {{ include "limesurvey.dbPassword" . | quote }}
+              - name: LS_DB_NAME
+                value: {{ include "limesurvey.dbName" . | quote }}
+              - name: LS_TABLE_PREFIX
+                value: {{ .Values.limesurvey.tablePrefix | quote }}
+              - name: LS_SITE_NAME
+                value: {{ .Values.limesurvey.siteName | quote }}
+              - name: LS_ADMIN_NAME
+                value: {{ .Values.limesurvey.adminName | quote }}
+              - name: LS_ADMIN_EMAIL
+                value: {{ .Values.limesurvey.adminEmail | quote }}
+              - name: LS_ADMIN_PASS
+                valueFrom:
+                  secretKeyRef:
+                    name: {{ .Release.Name }}-limesurvey-secrets
+                    key: limesurvey-admin-password
+              - name: LS_TIMEZONE
+                value: {{ .Values.limesurvey.timezone | quote }}
+          volumeMounts:
+            - name: limesurvey-config
+              mountPath: /setup.sh
+              subPath: setup.sh
+            - name: limesurvey-upload
+              mountPath: /var/www/html/upload/surveys
+      containers:
+        - name: limesurvey
+          image: {{ .Values.limesurvey.image }}:{{ .Values.limesurvey.tag }}
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsGroup: 33
+            runAsNonRoot: true
+            runAsUser: 33
+            seLinuxOptions: {}
+            seccompProfile:
+              type: RuntimeDefault
+          ports:
+            - containerPort: {{ .Values.limesurvey.port }}
+          env:
+            - name: LS_DB_HOST
+              value: {{ include "limesurvey.dbHost" . | quote }}
+            - name: LS_DB_PORT
+              value: {{ include "limesurvey.dbPort" . | quote }}
+            - name: LS_DB_USER
+              value: {{ include "limesurvey.dbUser" . | quote }}
+            - name: LS_DB_PASSWORD
+              value: {{ include "limesurvey.dbPassword" . | quote }}
+            - name: LS_DB_NAME
+              value: {{ include "limesurvey.dbName" . | quote }}
+            - name: LS_TABLE_PREFIX
+              value: {{ .Values.limesurvey.tablePrefix | quote }}
+            - name: LS_SITE_NAME
+              value: {{ .Values.limesurvey.siteName | quote }}
+            - name: LS_ADMIN_NAME
+              value: {{ .Values.limesurvey.adminName | quote }}
+            - name: LS_ADMIN_EMAIL
+              value: {{ .Values.limesurvey.adminEmail | quote }}
+            - name: LS_ADMIN_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Release.Name }}-limesurvey-secrets
+                  key: limesurvey-admin-password
+            - name: LS_TIMEZONE
+              value: {{ .Values.limesurvey.timezone | quote }}
+          volumeMounts:
+            - name: limesurvey-upload
+              mountPath: /var/www/html/upload/surveys
+            - name: limesurvey-config
+              mountPath: /var/www/html/application/config/config.php
+              subPath: config.php
+{{- if .Values.extraVolumeMounts }}
+{{- toYaml .Values.extraVolumeMounts | nindent 12 }}
+{{- end }}
+          resources: {{ .Values.limesurvey.resources | toYaml | nindent 12 }}
+      securityContext:
+        sysctls:
+          - name: net.ipv4.ip_unprivileged_port_start
+            value: "0"
+      volumes:
+        - name: limesurvey-upload
+          persistentVolumeClaim:
+            claimName: {{ .Release.Name }}-limesurvey-upload
+        - name: limesurvey-config
+          configMap:
+            name: {{ .Release.Name }}-limesurvey-config
+        - name: limesurvey-secret
+          secret:
+            secretName: {{ .Release.Name }}-limesurvey-secrets
+{{- if .Values.extraVolumes }}
+{{- toYaml .Values.extraVolumes | nindent 8 }}
+{{- end }}

@@ -1,0 +1,42 @@
+# SPDX-FileCopyrightText: 2026 openDesk Edu Contributors
+# SPDX-License-Identifier: Apache-2.0
+etherpad:
+  image: etherpad/etherpad
+  tag: "1.9.9"
+  port: 9001
+  db:
+    host: ""
+    user: etherpad
+    password: ""
+    name: etherpad
+    port: 5432
+  volumes:
+    data:
+      size: "1Gi"
+      accessMode: "ReadWriteMany"
+  resources:
+    requests:
+      cpu: "100m"
+      memory: "256Mi"
+    limits:
+      cpu: "500m"
+      memory: "512Mi"
+
+replicas: 1
+
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+  hosts: []
+  tls: []
+
+persistence:
+  storageClass: ""
+
+postgresql:
+  enabled: true
+  auth:
+    username: etherpad
+    database: etherpad
+    existingSecret: ""

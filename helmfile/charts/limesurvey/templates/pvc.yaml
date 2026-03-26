@@ -1,0 +1,17 @@
+# SPDX-FileCopyrightText: 2026 openDesk Edu Contributors
+# SPDX-License-Identifier: Apache-2.0
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ .Release.Name }}-limesurvey-upload
+  labels:
+{{ include "limesurvey.labels" . | nindent 4 }}
+spec:
+  accessModes:
+    - {{ .Values.limesurvey.volumes.upload.accessMode }}
+  resources:
+    requests:
+      storage: {{ .Values.limesurvey.volumes.upload.size }}
+  {{- if .Values.limesurvey.volumes.upload.storageClass }}
+  storageClassName: {{ .Values.limesurvey.volumes.upload.storageClass }}
+  {{- end }}
