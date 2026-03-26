@@ -61,6 +61,210 @@ be terminated.
 
 ---
 
+## v1.5 — Campus Management Integration (HISinOne / Marvin)
+
+> The deepest integration layer — connecting openDesk Edu to the university's central nervous system.
+> This is what turns a collection of apps into a **unified digital campus**.
+
+### Why This Matters
+
+[HISinOne](https://www.his.de/hisinone/) by HIS eG is the dominant campus management system in German
+higher education — used by **200+ universities**, including Marburg (where it runs as **"Marvin"**). It is the
+**source of truth** for:
+
+- **Who** is at the university — students, faculty, staff, guests (Personenverwaltung / PSV)
+- **What** they study — degree programs, modules, exam regulations, ECTS credits
+- **When** things happen — semester calendar, exam periods, course schedules, deadlines
+- **How well** they do — exam grades, transcripts, module completion status
+
+Every other system at a university is downstream from campus management. LMS courses are created because
+a module exists in the Prüfungsordnung. Students enroll in courses because HISinOne says they're
+registered. Rooms are booked because HISinOne's timetable says so. **Without campus management integration,
+openDesk Edu is just a suite of disconnected apps. With it, it becomes a digital campus.**
+
+### The Data Model
+
+HISinOne manages the **complete student lifecycle**:
+
+```
+Application → Enrollment → Study → Exams → Graduation → Alumni
+   (APP)        (STU)       (EXA)    (EXA)     (STU)    (ALU)
+```
+
+Key entities that flow into openDesk Edu:
+
+| Entity | HISinOne Module | openDesk Impact |
+|:-------|:----------------|:----------------|
+| **Person** (identity, roles, contact) | PSV | Account provisioning, SSO, group assignment |
+| **Student** (matrikel number, status, fees) | STU | Role-based access (student/faculty), account lifecycle |
+| **Degree Program** (BA/MA/StEx, rules, ECTS) | EXA | Study progress tracking, module requirements |
+| **Module** (credits, workload, type, description) | EXA | Course catalog, handbook data |
+| **Course** (title, semester, lecturers, room, time) | EXA-VM | Course creation in LMS, schedule, room info |
+| **Enrollment** (student ↔ course registration) | EXA-VM | LMS membership, course rosters |
+| **Parallel Groups** (course sections) | EXA-VM | LMS groups, tutorial assignments |
+| **Exam** (type, date, room, grade) | EXA-PM | Grade display, transcript of records |
+| **Room** (capacity, equipment, location) | EXA-VM | Room info in course context |
+| **Application** (applicant data, program choice) | APP | Pre-enrollment access, guest accounts |
+
+### Integration Architecture
+
+The proven pattern at German universities uses **three layers**:
+
+```
+┌──────────────┐       ┌──────────────────┐       ┌──────────────────┐
+│   HISinOne   │       │  openDesk Edu    │       │    HISinOne     │
+│   (Marvin)   │       │  Integration    │       │    Proxy         │
+│              │       │  Layer           │       │    (PHP, OSS)    │
+│  SOAP API    │◄──────│  (middleware)     │──────►│    + Queue       │
+│  Events      │       │                  │       │    + Dedup        │
+│  qisserver   │       │                  │       │    + Listener     │
+└──────────────┘       └──────┬───────────┘       └──────────────────┘
+                              │
+                ┌─────────┴──────────┐
+                │                    │
+         ┌──────▼──────┐    ┌─────▼──────┐
+         │  Keycloak   │    │  LMS       │
+         │  (SSO +     │    │  (ILIAS /   │
+         │   accounts) │    │   Moodle)   │
+         └──────┬──────┘    └─────┬──────┘
+                │                  │
+         ┌──────▼──────┐    ┌─────▼──────┐    ┌──────────────┐
+         │  BBB /      │    │  BBB /      │    │  Nextcloud /  │
+         │  Jitsi      │    │  Jitsi      │    │  OpenCloud    │
+         └─────────────┘    └─────────────┘    └──────────────┘
+```
+
+**Key technical decisions:**
+
+1. **Build on the HISinOne-Proxy** ([GitHub](https://github.com/DatabayAG/his_in_one_proxy), GPL-3.0)
+   — the community-standard middleware used by FH Dortmund (3,000 courses/semester), Uni Bonn,
+   FH Aachen, HHU Düsseldorf. Don't reinvent the wheel.
+2. **HISinOne communicates via SOAP** (`qisserver/services2/`) + **TCP event listener** (push, not poll)
+3. **openDesk Integration Layer** extends the proxy with additional targets (Keycloak, BBB, OpenCloud)
+4. **HISinOne is always the source of truth** — openDesk reads, never writes back to campus management
+
+### Phase 1: Identity & Account Lifecycle
+
+Automate user provisioning based on university enrollment/exmatriculation events.
+
+**Data flow:**
+```
+HISinOne (immatrikulation) → LDAP/AD (existing university IdM) → Keycloak (user sync) → all services
+HISinOne (exmatrikulation) → LDAP/AD → Keycloak (user deactivation) → access revoked
+```
+
+- [ ] Keycloak LDAP User Federation with the university's existing LDAP/AD
+- [ ] Group mapping: HISinOne roles → Keycloak groups → openDesk service access
+  - `student` → LMS access, course enrollment, file sharing
+  - `employee` → email, groupware, project management
+  - `lecturer` → LMS course owner, video conferencing host
+  - `faculty:PHIL` → faculty-specific portal tiles and permissions
+- [ ] Account lifecycle automation:
+  - Immatrikulation → create Keycloak user, assign base groups
+  - Beurlaubung (leave of absence) → suspend service access, keep account
+  - Exmatrikulation → deactivate account, archive data, revoke access
+  - Role change (student → staff) → update group memberships
+- [ ] Semester re-registration (Rückmeldung) verification — disable accounts for students who don't re-register
+- [ ] Guest lecturer provisioning — temporary accounts with time-limited access
+
+### Phase 2: Course Synchronization
+
+Automate course creation, enrollment, and roster management in ILIAS and Moodle.
+
+**Data flow:**
+```
+HISinOne (semester start) → HISinOne-Proxy → openDesk Integration Layer
+  → ILIAS: create courses, assign categories, add lecturers, enroll students
+  → Moodle: create courses, assign cohorts, enroll students
+  → BBB: create recurring meeting rooms per course (optional)
+  → Nextcloud/OpenCloud: create course file shares (optional)
+```
+
+- [ ] Extend HISinOne-Proxy to support openDesk as additional target alongside ILIAS ECS
+- [ ] Semester-triggered bulk course creation (all courses for upcoming semester)
+- [ ] Continuous incremental sync:
+  - New enrollments → add student to LMS course
+  - Withdrawals → remove student from LMS course
+  - Lecturer changes → update course ownership
+  - Room/time changes → update course metadata
+- [ ] Parallel group mapping (HISinOne Parallelgruppen → ILIAS course groups / Moodle groups)
+- [ ] Course categorization based on HISinOne organizational structure (faculty → department → program)
+- [ ] Course archival at semester end (freeze enrollments, archive content)
+
+### Phase 3: Schedule, Rooms & Exams
+
+Bring the semester calendar, room information, and exam data into the unified campus experience.
+
+- [ ] Unified semester calendar:
+  - Course schedule (day, time, room) from HISinOne → openDesk calendar / portal
+  - Exam dates and registration deadlines
+  - Re-registration deadlines
+  - Semester breaks and holidays
+- [ ] Room information display:
+  - Room details (capacity, equipment, accessibility) in course context
+  - Building maps / room finder integration
+- [ ] Exam management integration:
+  - Exam registration (Anmeldung zur Prüfung) from openDesk → HISinOne
+  - Grade display in openDesk dashboard after HISinOne grade entry
+  - Transcript of records (Notenauszug) accessible from portal
+  - Module completion tracking (ECTS progress toward degree)
+
+### Phase 4: Study Progress & Advising
+
+Transform raw campus management data into actionable student-facing information.
+
+- [ ] Study progress dashboard:
+  - ECTS earned vs. required per degree program (from HISinOne rules engine)
+  - Missing module identification
+  - Semester-by-semester plan
+  - GPA / grade overview
+- [ ] Module handbook integration:
+  - Published module descriptions from HISinOne → searchable in openDesk
+  - Module prerequisites and dependencies
+  - Cross-semester planning tool
+- [ ] Notification bridge:
+  - HISinOne events → openDesk push notifications (mobile, email, in-app)
+  - Exam registration opens/closes
+  - Grade published
+  - Re-registration deadline approaching
+  - Room change for a course
+- [ ] Course collaboration spaces:
+  - Auto-created Nextcloud/OpenCloud shares per course (based on roster)
+  - BBB/Jitsi meeting rooms auto-created per course (based on schedule)
+
+### Phase 5: Cross-Service Intelligence
+
+Connect campus management data with collaboration and communication tools for a smarter campus.
+
+- [ ] Communication groups based on course rosters (mailing lists, chat channels)
+- [ ] Document management linked to degree programs (thesis templates, internship reports)
+- [ ] Research project ↔ thesis/exam linking (OpenProject tasks → module completion)
+- [ ] Analytics: course engagement, attendance patterns, grade trends (GDPR-compliant, anonymized)
+
+### Technical Prerequisites
+
+Before starting any HISinOne integration work:
+
+- [ ] API access to university's HISinOne instance (`qisserver/services2/`)
+- [ ] SOAP API credentials (API user + webservice token)
+- [ ] Event listener registration (TCP endpoint accessible from HISinOne server)
+- [ ] Document the university's specific HISinOne configuration (active modules, custom fields, role names)
+- [ ] Fork/contribute to [HISinOne-Proxy](https://github.com/DatabayAG/his_in_one_proxy) for openDesk target support
+- [ ] Integration test environment with HISinOne test data
+
+### Risks & Mitigations
+
+| Risk | Impact | Mitigation |
+|:-----|:-------|:----------|
+| No public API docs (HIS eG member-only) | Blocks development | Partner with university IT; use HISinOne-Proxy as reference |
+| SOAP API (not REST) | More complex integration | Use proven proxy pattern; SOAP is stable and well-tested |
+| TCP event listener (not webhooks) | Requires network config | Request firewall allowlist for HISinOne → proxy connection |
+| Each university customizes HISinOne differently | Hard to generalize | Make integration layer fully configurable per institution |
+| HISinOne is not containerized | Can't deploy alongside openDesk | Integration layer runs in-cluster; HISinOne stays on-prem |
+| Student data is highly sensitive (DSGVO) | Legal/compliance risk | Follow data minimization; pseudonymize analytics; document data flows |
+
+---
+
 ## v1.2 — Lecture Recording
 
 > The #1 requested teaching tool beyond LMS + video conferencing.
@@ -223,7 +427,7 @@ Growing EU requirement via European Open Science Cloud (EOSC).
 | **Stud.IP** | No LTI, no Docker/K8s, limited REST API — too hard to integrate. Universities that use it should keep it alongside openDesk. |
 | **Papercut MF** | Proprietary. No viable open-source alternative exists for full print management (web print, follow-me, card readers). |
 | **Canvas LMS** | Proprietary (Instructure). Conflicts with sovereignty principle. |
-| **Shibboleth IdP** | Universities already run their own. openDesk Edu should integrate as a SP, not provide an IdP. |
+| **Shibboleth IdP deployment** | Universities already run their own IdP. openDesk Edu integrates as a SAML SP, not an IdP provider. |
 | **Keycloak as eduGAIN IdP** | SAML federation support is incomplete. Use Shibboleth IdP for federation, Keycloak for internal IAM. |
 
 ---
@@ -234,11 +438,14 @@ Growing EU requirement via European Open Science Cloud (EOSC).
 2026 Q2   v1.0  Current state (ILIAS, Moodle, BBB, OpenCloud)
           v1.1  DFN-AAI federation + semester lifecycle + logout
 2026 Q3   v1.2  Opencast + Tobira lecture recording
-2026 Q4   v2.0  EvaP + Mahara (evaluation + portfolio)
-2027 Q1   v2.1  MRBS + LEIHS (room + equipment booking)
-2027 Q2   v3.0  R/exams + JPlag (digital examination)
-2027 Q3   v4.0  Local LLM + xAPI analytics
-2027 Q4   v5.0  Multi-tenancy + research data management
+2026 Q4   v1.5  HISinOne/Marvin campus management integration (phase 1: identity)
+2027 Q1   v1.5  HISinOne integration (phase 2: courses, phase 3: schedule/exams)
+2027 Q2   v1.5  HISinOne integration (phase 4: study progress, phase 5: intelligence)
+2027 Q3   v2.0  EvaP + Mahara (evaluation + portfolio)
+2027 Q4   v2.1  MRBS + LEIHS (room + equipment booking)
+2028 Q1   v3.0  R/exams + JPlag (digital examination)
+2028 Q2   v4.0  Local LLM + xAPI analytics
+2028 Q3   v5.0  Multi-tenancy + research data management
 ```
 
 ---
