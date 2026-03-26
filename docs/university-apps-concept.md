@@ -1,5 +1,7 @@
 # University Apps: Extending OpenDesk for Higher Education
 
+> **Note**: This document describes the original 4 university services (ILIAS, Moodle, BigBlueButton, OpenCloud). openDesk Edu now includes **13 education services**. For the complete list, see [README.md](../README.md).
+
 **Philipps-Universität Marburg**
 
 ## Introduction

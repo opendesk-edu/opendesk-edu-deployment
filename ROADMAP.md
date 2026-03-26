@@ -30,7 +30,7 @@
 | Draw.io diagramming (stateless) | ✅ |
 | Excalidraw whiteboard (stateless) | ✅ |
 | Self-Service Password (LDAP) | ✅ |
-| SOGo groupware (alternative to OX App Suite) | 🚧 |
+| SOGo groupware (alternative to OX App Suite) | ✅ |
 
 ---
 

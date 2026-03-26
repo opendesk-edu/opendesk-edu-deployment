@@ -9,9 +9,20 @@ The upstream changelog follows below. For edu-specific changes, see the commit h
 - **Moodle** LMS integration with Shibboleth authentication
 - **BigBlueButton** video conferencing with SAML SSO
 - **OpenCloud** file sharing with OIDC authentication
-- Custom portal tiles and SVG icons for educational services
-- Helm charts for ILIAS, Moodle, BBB, and OpenCloud
-- Shibboleth SP configuration templates
+- **SOGo** groupware (email, calendar, contacts) with native OIDC SSO
+- **Etherpad** collaborative real-time editor with OIDC
+- **BookStack** knowledge base with SAML
+- **Planka** Kanban-style project boards with OIDC
+- **Zammad** helpdesk/ticket system with SAML
+- **LimeSurvey** course evaluation surveys with LDAP
+- **Draw.io** stateless diagramming
+- **Excalidraw** stateless whiteboarding
+- **Self-Service Password** LDAP password management
+- Portal tiles and SVG icons for all 13 education services
+- Helm charts for all 13 education services with CI (lint, template, kubeconform, helm-unittest)
+- Comprehensive GitHub Actions CI with kind cluster install tests
+- Dependabot for automated dependency updates
+- Makefile with lint, test, template, and spellcheck targets
 
 ---
 

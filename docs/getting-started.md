@@ -149,6 +149,42 @@ apps:
     enabled: false
 ```
 
+## Educational Services (openDesk Edu)
+
+In addition to the standard openDesk applications, openDesk Edu adds university-specific services. All services are pre-configured with SSO via Keycloak and appear in the portal.
+
+| Category | Service | SSO | Status |
+|----------|---------|-----|--------|
+| Learning Management | ILIAS | SAML | Beta |
+| Learning Management | Moodle | Shibboleth | Beta |
+| Video Conferencing | BigBlueButton | SAML | Beta |
+| File Sync & Share | OpenCloud | OIDC | Beta |
+| Groupware | SOGo | OIDC | Beta |
+| Collaborative Editing | Etherpad | OIDC | Beta |
+| Knowledge Base | BookStack | SAML | Beta |
+| Project Boards | Planka | OIDC | Beta |
+| Helpdesk | Zammad | SAML | Beta |
+| Surveys | LimeSurvey | LDAP | Beta |
+| Whiteboarding | Excalidraw | — | Beta |
+| Diagramming | Draw.io | — | Beta |
+| Password Management | Self-Service Password | LDAP | Beta |
+
+Enable or disable services in `helmfile/environments/default/opendesk_main.yaml.gotmpl`:
+
+```yaml
+apps:
+  ilias:
+    enabled: true
+  moodle:
+    enabled: true
+  bigbluebutton:
+    enabled: true
+  # ... etc.
+```
+
+For service-specific documentation, see [external-services.md](external-services.md).
+For the development roadmap, see [ROADMAP.md](../ROADMAP.md).
+
 ## Private registries
 
 By default, Helm charts and container images are fetched from OCI registries. These registries can be found in most cases

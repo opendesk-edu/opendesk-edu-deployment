@@ -66,6 +66,15 @@ description:
       - "Lernmanagement (ILIAS, Moodle)"
       - "Videoconferencing (BigBlueButton)"
       - "Dateiablage (OpenCloud)"
+      - "Groupware (SOGo)"
+      - "Kollaborativer Editor (Etherpad)"
+      - "Wissensdatenbank (BookStack)"
+      - "Projektverwaltung (Planka)"
+      - "Helpdesk (Zammad)"
+      - "Umfragen (LimeSurvey)"
+      - "Diagramme (Draw.io)"
+      - "Whiteboard (Excalidraw)"
+      - "Passwort-Self-Service"
     genericName: "Digital Workplace für Bildungseinrichtungen"
     longDescription: >
       openDesk Edu erweitert die anpassungsfähige Office- und Kollaborations-Suite openDesk
@@ -100,6 +109,15 @@ description:
       - "learning management (ILIAS, Moodle)"
       - "video conferencing (BigBlueButton)"
       - "file sharing (OpenCloud)"
+      - "Groupware (SOGo)"
+      - "Collaborative Editor (Etherpad)"
+      - "Knowledge Base (BookStack)"
+      - "Project Management (Planka)"
+      - "Helpdesk (Zammad)"
+      - "Surveys (LimeSurvey)"
+      - "Diagrams (Draw.io)"
+      - "Whiteboard (Excalidraw)"
+      - "Password Self-Service"
     genericName: "Digital Workplace for Education"
     shortDescription: >
       openDesk CE with integrated educational services for universities.
