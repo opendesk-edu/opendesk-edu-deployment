@@ -1,0 +1,27 @@
+# CODEOWNERS — Default code ownership for openDesk Edu
+#
+# These patterns define who needs to review changes before merging.
+# Adjust the email/team below to match your organization.
+
+# Default: all changes require review
+* @tobias-weiss-ai-xr
+
+# Education-specific charts and apps
+/helmfile/charts/ilias/          @tobias-weiss-ai-xr
+/helmfile/charts/moodle/         @tobias-weiss-ai-xr
+/helmfile/charts/bigbluebutton/  @tobias-weiss-ai-xr
+/helmfile/charts/opencloud/      @tobias-weiss-ai-xr
+/helmfile/apps/ilias/            @tobias-weiss-ai-xr
+/helmfile/apps/moodle/           @tobias-weiss-ai-xr
+/helmfile/apps/bigbluebutton/    @tobias-weiss-ai-xr
+/helmfile/apps/opencloud/        @tobias-weiss-ai-xr
+
+# CI and automation
+/.github/                        @tobias-weiss-ai-xr
+.renovate/                       @tobias-weiss-ai-xr
+
+# Documentation
+/README.md                       @tobias-weiss-ai-xr
+/ROADMAP.md                      @tobias-weiss-ai-xr
+/docs/university-apps-concept.md @tobias-weiss-ai-xr
+/docs/external-services/         @tobias-weiss-ai-xr

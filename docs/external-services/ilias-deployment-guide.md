@@ -8,8 +8,7 @@ ILIAS (Integrated Learning, Information and Work Cooperation System) is a powerf
 
 - **URL:** https://lms.opendesk.example.com
 - **Namespace:** `opendesk`
-- **Branch:** `deploy/ilias-integration`
-- **Helm Chart:** `mbcom/ilias-chart` (v0.1.0)
+- **Helm Chart:** `helmfile/charts/ilias` (included in this repository)
 - **Ingress:** haproxy (LoadBalancer IP assigned by your cloud/provider)
 
 ## Architecture
@@ -184,15 +183,14 @@ kubectl exec -n opendesk deploy/ilias-ilias -- cat /var/www/html/data/default/cl
 
 ### Update ILIAS
 
-1. Update Helm values:
+1. Update Helm chart:
    ```bash
-   helm repo update
-   helm search repo mbcom/ilias-chart --versions
+   helmfile -e default sync
    ```
 
-2. Upgrade release:
+2. Verify release:
    ```bash
-   helm upgrade ilias mbcom/ilias-chart -n opendesk -f helmfile/apps/ilias/values.yaml.gotmpl
+   helm status ilias -n opendesk
    ```
 
 3. Run database migrations (if needed):
