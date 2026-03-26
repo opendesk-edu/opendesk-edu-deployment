@@ -1939,6 +1939,45 @@ nubusStackDataUms:
           entries:
             - "cn=managementSSP,cn=entry,cn=portals,cn=univention,{{ .Values.ldap.baseDn }}"
 
+      15-custom-sogo-portal-entry.yaml: |-
+        # SPDX-License-Identifier: AGPL-3.0-only
+        # SPDX-FileCopyrightText: 2026 openDesk Edu Contributors
+
+        # SOGo Groupware Portal Entry
+        ---
+        action: "create"
+        module: "portals/entry"
+        position: "cn=entry,cn=portals,cn=univention,{{ .Values.ldap.baseDn }}"
+        properties:
+          name: "managementSogo"
+          activated: true
+          anonymous: false
+          linkTarget: "newwindow"
+          displayName:
+            de_DE: "SOGo"
+            en_US: "SOGo"
+          description:
+            de_DE: "Groupware — E-Mail, Kalender & Kontakte"
+            en_US: "Groupware — Email, Calendar & Contacts"
+          link:
+            - - "en_US"
+              - "https://sogo.opendesk.example.com"
+            - - "de_DE"
+              - "https://sogo.opendesk.example.com"
+
+        action: "modify"
+        module: "portals/entry"
+        position: "cn=managementSogo,cn=entry,cn=portals,cn=univention,{{ .Values.ldap.baseDn }}"
+        properties:
+          linkTarget: "newwindow"
+
+        action: "ensure_list_contains"
+        module: "portals/category"
+        position: "cn=od.applications,cn=category,cn=portals,cn=univention,{{ .Values.ldap.baseDn }}"
+        properties:
+          entries:
+            - "cn=managementSogo,cn=entry,cn=portals,cn=univention,{{ .Values.ldap.baseDn }}"
+
 
 nubusUmcServer:
   additionalAnnotations:

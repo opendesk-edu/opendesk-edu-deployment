@@ -221,6 +221,13 @@ Configuration follows the same pattern as the upstream services above.
 |                  |         | Port                             | `databases.limesurvey.port`                   | `3306`         |
 |                  |         | Username                         | `databases.limesurvey.username`               | `limesurvey_user`|
 |                  |         | Password                         | `databases.limesurvey.password`               |                |
+| SOGo             | SOGo    |                                  |                                               |                |
+|                  |         | Type                             | `databases.sogo.type`                         | `postgresql`   |
+|                  |         | Name                             | `databases.sogo.name`                         | `sogo`         |
+|                  |         | Host                             | `databases.sogo.host`                         | `postgresql`   |
+|                  |         | Port                             | `databases.sogo.port`                         | `5432`         |
+|                  |         | Username                         | `databases.sogo.username`                     | `sogo_user`    |
+|                  |         | Password                         | `databases.sogo.password`                     |                |
 
 > [!note]
 > Draw.io, Excalidraw, and Self-Service Password are stateless applications and do not require a database.
@@ -247,6 +254,9 @@ Configuration follows the same pattern as the upstream services above.
 | Zammad        | Zammad  | Redis |                              |                            |                  |
 |               |         |       | Host                         | `cache.zammad.host`        | `redis-headless` |
 |               |         |       | Port                         | `cache.zammad.port`        | `6379`           |
+| SOGo          | SOGo    | Memcached |                            |                            |                  |
+|               |         |       | Host                         | `cache.sogo.host`          | `memcached`      |
+|               |         |       | Port                         | `cache.sogo.port`          | `11211`          |
 
 ## Footnotes
 
