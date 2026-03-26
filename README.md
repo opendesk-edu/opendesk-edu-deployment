@@ -75,14 +75,14 @@ core services universities need — all integrated with openDesk's existing Keyc
 
 | Service | Component | Status | Description |
 |:--------|:----------|:------:|:------------|
-| 📝 **Collaborative Editing** | [Etherpad](https://etherpad.org/) | ✅ Stable | Real-time collaborative document editor — meeting notes, workshops, live editing |
-| 📚 **Knowledge Base** | [BookStack](https://www.bookstackapp.com/) | ✅ Stable | Wiki with book/chapter structure — course materials, SOPs, documentation |
-| 📋 **Project Management** | [Planka](https://planka.app/) | ✅ Stable | Kanban boards with OIDC — student projects, research planning |
-| 🎫 **Service Desk** | [Zammad](https://zammad.com/) | ✅ Stable | Helpdesk with SAML — IT support, multi-channel (email, chat, phone) |
-| 📊 **Surveys** | [LimeSurvey](https://www.limesurvey.org/) | ✅ Stable | Survey platform — course evaluations, academic research |
-| 🔑 **Password Self-Service** | [LTB SSP](https://ltb-project.org/) | ✅ Stable | LDAP password reset — reduces helpdesk tickets |
-| 📐 **Diagramming** | [Draw.io](https://www.drawio.com/) | ✅ Stable | Architecture diagrams, flowcharts, UML — export to PDF/VSDX |
-| ✏️ **Whiteboarding** | [Excalidraw](https://excalidraw.com/) | ✅ Stable | Hand-drawn sketches, brainstorming — lightweight and fast |
+| 📝 **Collaborative Editing** | [Etherpad](https://etherpad.org/) | 🔄 Beta | Real-time collaborative document editor — meeting notes, workshops, live editing |
+| 📚 **Knowledge Base** | [BookStack](https://www.bookstackapp.com/) | 🔄 Beta | Wiki with book/chapter structure — course materials, SOPs, documentation |
+| 📋 **Project Management** | [Planka](https://planka.app/) | 🔄 Beta | Kanban boards with OIDC — student projects, research planning |
+| 🎫 **Service Desk** | [Zammad](https://zammad.com/) | 🔄 Beta | Helpdesk with SAML — IT support, multi-channel (email, chat, phone) |
+| 📊 **Surveys** | [LimeSurvey](https://www.limesurvey.org/) | 🔄 Beta | Survey platform — course evaluations, academic research |
+| 🔑 **Password Self-Service** | [LTB SSP](https://ltb-project.org/) | 🔄 Beta | LDAP password reset — reduces helpdesk tickets |
+| 📐 **Diagramming** | [Draw.io](https://www.drawio.com/) | 🔄 Beta | Architecture diagrams, flowcharts, UML — export to PDF/VSDX |
+| ✏️ **Whiteboarding** | [Excalidraw](https://excalidraw.com/) | 🔄 Beta | Hand-drawn sketches, brainstorming — lightweight and fast |
 
 ### Alt Components (Choose One) 🔄
 
