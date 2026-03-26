@@ -131,7 +131,7 @@ Checks for newer versions of the given artifact and creates an MR containing the
 
 openDesk strives to make all relevant artifacts available on openCode so there is a mirroring process
 configured to pull artifacts that do not originate from openCode into projects called `*-Mirror` within the
-[openDesk Components section](https://gitlab.opencode.de/bmi/opendesk/components).
+[openDesk Components](https://github.com/Bundesdruckerei/opendesk) repository.
 
 The mirror script takes the information on what artifacts to mirror from the annotation inside the two yaml files:
 - `# upstreamRegistry` *required*: To identify the source registry

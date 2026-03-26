@@ -68,7 +68,7 @@ openCode provides some boundaries when it comes to open source license complianc
 
 Deviations from the above requirements must be documented in the openDesk license deviation report.
 
-**Reference:** https://gitlab.opencode.de/bmi/opendesk/deployment/SBOM/-/blob/main/sboms/openDesk%20Deviation%20Report-0.5.74.md
+**Reference:** See the upstream [openDesk license deviation report](https://opencode.de/en/knowledge/general-conditions/standardised-open-source-licenses) for details on license compliance requirements.
 
 openDesk MUST ensure open source license compliance.
 Therefore, suppliers MUST apply the [OpenChain ISO/IEC 5230](https://openchainproject.org/license-compliance) license compliance program. Suppliers MAY use the [ISO/IEC 5230 Self-Certification

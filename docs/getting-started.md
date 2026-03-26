@@ -160,7 +160,7 @@ like Docker Hub.
 Doing a test deployment will be fine with this setup. In case you want to deploy multiple times a day
 and fetch from the same IP address, you might run into rate limits at Docker Hub. In that case, and in case you
 prefer the use of a private image registry, you can configure these in
-[your target environment](../helmfile/environments/dev/values.yaml.gotmpl.sample) by setting
+[your target environment](../helmfile/environments/test/values.yaml.gotmpl) by setting
 - `global.imageRegistry` for a private image registry and
 - `global.helmRegistry` for a private Helm chart registry.
 
