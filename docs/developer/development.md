@@ -6,8 +6,9 @@ SPDX-License-Identifier: Apache-2.0
 
 # Developing openDesk deployment automation
 
-Active development on the deployment is currently only available to project members.
-However, contributions are possible using the [CLA](https://gitlab.opencode.de/bmi/opendesk/info/-/blob/main/CONTRIBUTING.md?ref_type=heads) process.
+Contributions to this fork are welcome! See [CONTRIBUTING.md](../../CONTRIBUTING.md) for guidelines.
+
+> **Note:** The workflow documentation below describes the upstream openDesk development process on GitLab, which uses a `develop` branch and Gitflow. This GitHub fork uses a simplified `main`-branch workflow. When contributing here, branch off from `main` and submit PRs against `main`.
 
 <!-- TOC -->
 * [Developing openDesk deployment automation](#developing-opendesk-deployment-automation)
@@ -56,13 +57,11 @@ example is demonstrated in the `helmfile.yaml.gotmpl` file.
 
 Before you investigate any app-specific configuration, it is recommended that you review the contents of `./helmfile/environments/default` to understand what configuration details are set there, as the app deployments reference them.
 
-## Default branch, `develop` and other branches
+## Default branch and branching
 
-The `main` branch is configured to be the default branch, as visitors to the project on openCode should see that
-branch by default.
+This fork uses `main` as the only long-lived branch. Branch off from `main` for all contributions.
 
-Please use the `develop` branch to diverge your branch(es) from. See the [workflow guide](./docs/developer/workflow.md)
-for more details on naming conventions.
+> The upstream openDesk project on GitLab uses a Gitflow model with a `develop` branch. The section below is kept for reference when working with upstream code.
 
 ## External artifacts - `charts.yaml.gotmpl` and `images.yaml.gotmpl`
 

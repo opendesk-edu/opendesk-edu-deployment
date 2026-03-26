@@ -76,9 +76,9 @@ The following naming scheme is applied for the deployment matrix:
 
 **`<type>`**
 
-- `init`: Initial / fresh / from the scratch deployment of `develop` branch into an empty namespace.
-- `upgr`: Deploy latest migration release (needs to be pinned manually) into an empty namespace, afterwards run upgrade deployment with current state of `develop` branch.
-- `upd`: Deploy latest release (`main` branch) into an empty namespace, afterwards run upgrade deployment with current state of `develop` branch.
+- `init`: Initial / fresh / from the scratch deployment into an empty namespace.
+- `upgr`: Deploy latest migration release into an empty namespace, afterwards run upgrade deployment with current state.
+- `upd`: Deploy latest release into an empty namespace, afterwards run upgrade deployment with current state.
 
 **`<profile>`**: The following profiles are defined
 - `default`: With
@@ -86,7 +86,7 @@ The following naming scheme is applied for the deployment matrix:
   - *Services*: Internal services deployed with openDesk are used.
   - *Secrets*: Master password based secrets based on `secrets.yaml.gotmpl`
   - *Certificates*: Letsencrypt-prod certificates are used.
-  - *Deployment*: GitLab CI based deployment.
+   - *Deployment*: CI/CD based deployment.
 - `funct1`: Different configuration of `functional.yaml`, self-signed-certs [and when available external secrets].
 - `extsrv`: External services (where possible).
 - `gitops`: Argo CD based deployment.

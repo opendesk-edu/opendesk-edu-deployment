@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: openDesk Edu Documentation
+    url: https://github.com/tobias-weiss-ai-xr/opendesk-edu#readme
+    about: Check the README and docs/ directory for setup guides and configuration references.
+  - name: Upstream openDesk CE Issues
+    url: https://github.com/Bundesdruckerei/opendesk/issues
+    about: For issues with core openDesk components (Nextcloud, Element, OpenProject, etc.), please check the upstream repository first.

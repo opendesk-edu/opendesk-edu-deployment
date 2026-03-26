@@ -2,7 +2,7 @@
 
 ## Overview
 
-ILIAS (Integrated Learning, Information and Work Cooperation System) is a powerful open-source Learning Management System (LMS) that has been deployed in the openDesk HRZ environment with SSO integration.
+ILIAS (Integrated Learning, Information and Work Cooperation System) is a powerful open-source Learning Management System (LMS) that can be deployed alongside openDesk with SSO integration via Shibboleth and Keycloak.
 
 ## Deployment Summary
 
@@ -10,7 +10,7 @@ ILIAS (Integrated Learning, Information and Work Cooperation System) is a powerf
 - **Namespace:** `opendesk`
 - **Branch:** `deploy/ilias-integration`
 - **Helm Chart:** `mbcom/ilias-chart` (v0.1.0)
-- **Ingress:** haproxy on 10.0.0.1
+- **Ingress:** haproxy (LoadBalancer IP assigned by your cloud/provider)
 
 ## Architecture
 

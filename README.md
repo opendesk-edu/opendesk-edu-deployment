@@ -171,4 +171,10 @@ Contributions are welcome! See the [Development guide](./docs/developer/developm
 
 ## ©️ Copyright
 
+openDesk Edu is a fork of [openDesk](https://www.opencode.de/en/opendesk). Upstream copyright:
+
 Copyright (C) 2024-2025 Zentrum für Digitale Souveränität der Öffentlichen Verwaltung (ZenDiS) GmbH
+
+openDesk Edu additions:
+
+Copyright (C) 2025-2026 openDesk Edu Contributors

@@ -6,6 +6,8 @@ SPDX-License-Identifier: Apache-2.0
 
 # Technical development and release workflow
 
+> **Note:** This document describes the upstream openDesk workflow on GitLab, which uses a `develop` branch and strict Gitflow. This GitHub fork uses a simplified `main`-branch workflow. For contributing to this fork, see [CONTRIBUTING.md](../../CONTRIBUTING.md). The upstream process is documented below for reference when working with upstream code.
+
 <!-- TOC -->
 * [Technical development and release workflow](#technical-development-and-release-workflow)
   * [Scope](#scope)
