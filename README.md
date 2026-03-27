@@ -13,6 +13,8 @@ openDesk CE + 13 education services (ILIAS, Moodle, BigBlueButton, OpenCloud, ..
 
 **openDesk + Educational Services for Universities**
 
+![ILIAS SSO Integration Flow](docs/opendesk-edu-ilias-integration.gif)
+
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Kubernetes](https://img.shields.io/badge/Platform-Kubernetes-326CE5?logo=kubernetes&logoColor=white)](https://kubernetes.io)
 [![Helm](https://img.shields.io/badge/Deploy-Helm-0F1689?logo=helm&logoColor=white)](https://helm.sh)
