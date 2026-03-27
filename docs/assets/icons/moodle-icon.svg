@@ -1,14 +1,5 @@
 <svg width="111" height="111" viewBox="0 0 111 111" fill="none" xmlns="http://www.w3.org/2000/svg">
   <rect x="0.5" y="0.5" width="110" height="110" rx="20" fill="white"/>
-  <g>
-    <!-- Moodle-inspired abstract learning paths -->
-    <path d="M30 70C30 70 35 55 45 50C55 45 60 35 65 35C70 35 75 40 75 50" stroke="#571EFA" stroke-width="6" stroke-linecap="round" fill="none"/>
-    <path d="M40 75C40 75 45 60 55 55C60 52 65 45 70 45" stroke="#341291" stroke-width="5" stroke-linecap="round" fill="none"/>
-    <path d="M50 78C50 78 52 68 58 62" stroke="#927AFA" stroke-width="4" stroke-linecap="round" fill="none"/>
-    <!-- Learning nodes -->
-    <circle cx="30" cy="70" r="4" fill="#571EFA"/>
-    <circle cx="45" cy="50" r="4" fill="#571EFA"/>
-    <circle cx="65" cy="35" r="4" fill="#571EFA"/>
-    <circle cx="75" cy="50" r="4" fill="#341291"/>
-  </g>
+  <path d="M24 70 V42 L55 26 L86 42 V70 L55 86Z" fill="#341291"/>
+  <path d="M55 26 V86 M24 42 L86 42 M24 56 L86 56" stroke="#571EFA" stroke-width="3"/>
 </svg>

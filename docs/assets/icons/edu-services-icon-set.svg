@@ -1,47 +1,34 @@
-<svg width="800" height="200" viewBox="0 0 800 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <!-- Icon set preview showing all edu service icons -->
-  <rect width="800" height="200" fill="#F5F5F5"/>
-  
-  <!-- Title -->
-  <text x="400" y="30" text-anchor="middle" font-family="Arial" font-size="16" fill="#341291" font-weight="bold">openDesk Edu Icon Set</text>
-  
-  <!-- ILIAS -->
-  <g transform="translate(50, 50)">
-    <rect width="111" height="111" rx="20" fill="white"/>
-    <path d="M55.5 30L25 45L55.5 60L86 45L55.5 30Z" fill="#571EFA"/>
-    <path d="M30 75L55.5 60L81 75V85H30V75Z" fill="#341291"/>
-    <path d="M55.5 60L30 75V45L55.5 30L81 45V75L55.5 60Z" fill="#341291"/>
-    <circle cx="86" cy="45" r="4" fill="#927AFA"/>
-    <text x="55.5" y="135" text-anchor="middle" font-family="Arial" font-size="14" fill="#341291">ILIAS</text>
+<svg width="900" height="220" viewBox="0 0 900 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="900" height="220" fill="#FAFBFC" rx="12"/>
+  <text x="450" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" fill="#341291" font-weight="600">openDesk Edu Icon Set</text>
+  <g transform="translate(25, 45)">
+    <rect width="111" height="111" rx="20" fill="white" stroke="#E5E7EB"/>
+    <path d="M55 24 L22 40 L55 56 L88 40Z" fill="#341291"/><path d="M22 44 L55 60 L55 88 L22 72Z" fill="#571EFA"/><path d="M88 44 L55 60 L55 88 L88 72Z" fill="#341291"/>
+    <text x="55" y="135" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#6B7280">ILIAS</text>
   </g>
-  
-  <!-- Moodle -->
-  <g transform="translate(200, 50)">
-    <rect width="111" height="111" rx="20" fill="white"/>
-    <path d="M30 70C30 70 35 55 45 50C55 45 60 35 65 35C70 35 75 40 75 50" stroke="#571EFA" stroke-width="6" stroke-linecap="round"/>
-    <circle cx="30" cy="70" r="4" fill="#571EFA"/>
-    <circle cx="45" cy="50" r="4" fill="#571EFA"/>
-    <circle cx="65" cy="35" r="4" fill="#571EFA"/>
-    <circle cx="75" cy="50" r="4" fill="#341291"/>
-    <text x="55.5" y="135" text-anchor="middle" font-family="Arial" font-size="14" fill="#341291">Moodle</text>
+  <g transform="translate(160, 45)">
+    <rect width="111" height="111" rx="20" fill="white" stroke="#E5E7EB"/>
+    <path d="M24 70 V42 L55 26 L86 42 V70 L55 86Z" fill="#341291"/><path d="M55 26 V86 M24 42 L86 42 M24 56 L86 56" stroke="#571EFA" stroke-width="3"/>
+    <text x="55" y="135" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#6B7280">Moodle</text>
   </g>
-  
-  <!-- BigBlueButton -->
-  <g transform="translate(350, 50)">
-    <rect width="111" height="111" rx="20" fill="white"/>
-    <rect x="25" y="30" width="61" height="40" rx="4" fill="#571EFA"/>
-    <rect x="29" y="34" width="20" height="16" rx="2" fill="white" opacity="0.8"/>
-    <rect x="53" y="34" width="28" height="16" rx="2" fill="white" opacity="0.6"/>
-    <path d="M55.5 78V83C55.5 86 53 88 50 88C47 88 44.5 86 44.5 83V78" stroke="#341291" stroke-width="3" stroke-linecap="round"/>
-    <rect x="44.5" y="68" width="11" height="12" rx="3" fill="#341291"/>
-    <text x="55.5" y="135" text-anchor="middle" font-family="Arial" font-size="14" fill="#341291">BigBlueButton</text>
+  <g transform="translate(295, 45)">
+    <rect width="111" height="111" rx="20" fill="white" stroke="#E5E7EB"/>
+    <path d="M20 30 H90 V70 H20Z" fill="#341291"/><path d="M26 36 H84 V64 H26Z" fill="#571EFA"/><path d="M46 44 L66 50 L46 56Z" fill="white"/>
+    <text x="55" y="135" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#6B7280">BBB</text>
   </g>
-  
-  <!-- OpenCloud -->
-  <g transform="translate(500, 50)">
-    <rect width="111" height="111" rx="20" fill="white"/>
-    <path d="M20 46L55.5 22L91 46L91 65L55.5 89L20 65Z" fill="#341291"/>
-    <path d="M48 48L55.5 27L63 48L83 55.5L63 63L55.5 84L48 63L28 55.5Z" fill="#571EFA"/>
-    <text x="55.5" y="135" text-anchor="middle" font-family="Arial" font-size="14" fill="#341291">OpenCloud</text>
+  <g transform="translate(430, 45)">
+    <rect width="111" height="111" rx="20" fill="white" stroke="#E5E7EB"/>
+    <path d="M22 42 H64 V86 H22Z" fill="#341291"/><path d="M46 42 H88 V86 H46Z" fill="#571EFA"/><path d="M22 42 H88 L64 26Z" fill="#571EFA"/>
+    <text x="55" y="135" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#6B7280">OpenCloud</text>
+  </g>
+  <g transform="translate(565, 45)">
+    <rect width="111" height="111" rx="20" fill="white" stroke="#E5E7EB"/>
+    <path d="M30 40 H80 V80 H30Z" fill="#341291"/><path d="M30 40 H80 L55 58Z" fill="#571EFA"/><path d="M56 28 H82 V44 H56Z" fill="#571EFA"/>
+    <text x="55" y="135" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#6B7280">SOGo</text>
+  </g>
+  <g transform="translate(700, 45)">
+    <rect width="111" height="111" rx="20" fill="white" stroke="#E5E7EB"/>
+    <path d="M24 28 H42 V82 H24Z" fill="#341291"/><path d="M46 28 H64 V82 H46Z" fill="#571EFA"/><path d="M68 28 H86 V82 H68Z" fill="#341291"/>
+    <text x="55" y="135" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#6B7280">Planka</text>
   </g>
 </svg>

@@ -1,15 +1,6 @@
 <svg width="111" height="111" viewBox="0 0 111 111" fill="none" xmlns="http://www.w3.org/2000/svg">
   <rect x="0.5" y="0.5" width="110" height="110" rx="20" fill="white"/>
-  <g>
-    <!-- Video conference screen -->
-    <rect x="25" y="30" width="61" height="40" rx="4" fill="#571EFA"/>
-    <!-- Screen content -->
-    <rect x="29" y="34" width="20" height="16" rx="2" fill="white" opacity="0.8"/>
-    <rect x="53" y="34" width="28" height="16" rx="2" fill="white" opacity="0.6"/>
-    <rect x="29" y="54" width="28" height="12" rx="2" fill="white" opacity="0.6"/>
-    <rect x="53" y="54" width="28" height="12" rx="2" fill="white" opacity="0.4"/>
-    <!-- Microphone icon -->
-    <path d="M55.5 78V83C55.5 86 53 88 50 88C47 88 44.5 86 44.5 83V78" stroke="#341291" stroke-width="3" stroke-linecap="round"/>
-    <rect x="44.5" y="68" width="11" height="12" rx="3" fill="#341291"/>
-  </g>
+  <path d="M20 30 H90 V70 H20Z" fill="#341291"/>
+  <path d="M26 36 H84 V64 H26Z" fill="#571EFA"/>
+  <path d="M46 44 L66 50 L46 56Z" fill="white"/>
 </svg>

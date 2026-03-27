@@ -1,14 +1,6 @@
 <svg width="111" height="111" viewBox="0 0 111 111" fill="none" xmlns="http://www.w3.org/2000/svg">
   <rect x="0.5" y="0.5" width="110" height="110" rx="20" fill="white"/>
-  <g>
-    <!-- Open book base -->
-    <path d="M30 75L55.5 60L81 75V85H30V75Z" fill="#571EFA"/>
-    <!-- Book pages -->
-    <path d="M55.5 60L30 75V45L55.5 30L81 45V75L55.5 60Z" fill="#341291"/>
-    <!-- Graduation cap top -->
-    <path d="M55.5 30L25 45L55.5 60L86 45L55.5 30Z" fill="#927AFA"/>
-    <!-- Tassel -->
-    <circle cx="86" cy="45" r="4" fill="#571EFA"/>
-    <path d="M86 45L88 55L86 60" stroke="#571EFA" stroke-width="2" fill="none"/>
-  </g>
+  <path d="M55 24 L22 40 L55 56 L88 40Z" fill="#341291"/>
+  <path d="M22 44 L55 60 L55 88 L22 72Z" fill="#571EFA"/>
+  <path d="M88 44 L55 60 L55 88 L88 72Z" fill="#341291"/>
 </svg>
