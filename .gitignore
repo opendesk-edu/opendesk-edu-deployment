@@ -3,6 +3,8 @@
 .vscode
 .idea
 .yamllint
+.opencode
+.sisyphus
 
 # Ignore changes to sample environments
 helmfile/environments/dev/*.yaml.gotmpl
