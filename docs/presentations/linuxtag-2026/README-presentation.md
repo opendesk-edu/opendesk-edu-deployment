@@ -7,38 +7,38 @@ Präsentation über die openDesk-Erfahrung an der Philipps-Universität Marburg.
 
 ## 🌍 Available Languages
 
-| Language | File | Slides |
-|:---------|:-----|:------:|
-| 🇩🇪 Deutsch | `linuxtag-2026-opendesk.md` | 360 |
-| 🇬🇧 English | `linuxtag-2026-opendesk-en.md` | 360 |
-| 🇫🇷 Français | `linuxtag-2026-opendesk-fr.md` | 360 |
-| 🇪🇸 Español | `linuxtag-2026-opendesk-es.md` | 360 |
-| 🇮🇹 Italiano | `linuxtag-2026-opendesk-it.md` | 360 |
-| 🇵🇹 Português | `linuxtag-2026-opendesk-pt.md` | 360 |
-| 🇳🇱 Nederlands | `linuxtag-2026-opendesk-nl.md` | 360 |
-| 🇸🇪 Svenska | `linuxtag-2026-opendesk-sv.md` | 360 |
-| 🇦🇩 Català | `linuxtag-2026-opendesk-ca.md` | 360 |
-| 🇬🇱 Galego | `linuxtag-2026-opendesk-gl.md` | 360 |
-| 🇩🇰 dansk | `linuxtag-2026-opendesk-da.md` | 360 |
-| 🇫🇮 suomi | `linuxtag-2026-opendesk-fi.md` | 360 |
-| 🇵🇱 polski | `linuxtag-2026-opendesk-pl.md` | 360 |
-| 🇨🇿 čeština | `linuxtag-2026-opendesk-cs.md` | 360 |
-| 🇷🇴 română | `linuxtag-2026-opendesk-ro.md` | 360 |
-| 🇸🇰 slovenčina | `linuxtag-2026-opendesk-sk.md` | 360 |
-| 🇭🇺 magyar | `linuxtag-2026-opendesk-hu.md` | 360 |
-| 🇭🇷 hrvatski | `linuxtag-2026-opendesk-hr.md` | 360 |
-| 🇸🇮 slovenščina | `linuxtag-2026-opendesk-sl.md` | 360 |
-| 🇬🇷 Ελληνικά | `linuxtag-2026-opendesk-el.md` | 360 |
-| 🇧🇬 български | `linuxtag-2026-opendesk-bg.md` | 360 |
-| 🇪🇪 eesti | `linuxtag-2026-opendesk-et.md` | 360 |
-| 🇱🇹 lietuvių | `linuxtag-2026-opendesk-lt.md` | 360 |
-| 🇱🇻 latviešu | `linuxtag-2026-opendesk-lv.md` | 360 |
-| 🇬🇪 Gaeilge | `linuxtag-2026-opendesk-ga.md` | 360 |
-| 🇲🇹 Malti | `linuxtag-2026-opendesk-mt.md` | 360 |
-| 🇷🇸 српски | `linuxtag-2026-opendesk-sr.md` | 360 |
-| 🇺🇦 українська | `linuxtag-2026-opendesk-uk.md` | 360 |
-| 🇧🇪 беларуская | `linuxtag-2026-opendesk-be.md` | 360 |
-| 🇨🇳 中文 | `linuxtag-2026-opendesk-zh.md` | 360 |
+| Language | Source | HTML |
+|:---------|:-------|:-----|
+| 🇩🇪 Deutsch | `linuxtag-2026-opendesk.md` | [▶ View](https://htmlpreview.github.io/?https://github.com/tobias-weiss-ai-xr/opendesk-edu/blob/main/docs/presentations/linuxtag-2026/linuxtag-2026-opendesk.html) |
+| 🇬🇧 English | `linuxtag-2026-opendesk-en.md` | [▶ View](https://htmlpreview.github.io/?https://github.com/tobias-weiss-ai-xr/opendesk-edu/blob/main/docs/presentations/linuxtag-2026/linuxtag-2026-opendesk-en.html) |
+| 🇫🇷 Français | `linuxtag-2026-opendesk-fr.md` | [▶ View](https://htmlpreview.github.io/?https://github.com/tobias-weiss-ai-xr/opendesk-edu/blob/main/docs/presentations/linuxtag-2026/linuxtag-2026-opendesk-fr.html) |
+| 🇪🇸 Español | `linuxtag-2026-opendesk-es.md` | — |
+| 🇮🇹 Italiano | `linuxtag-2026-opendesk-it.md` | — |
+| 🇵🇹 Português | `linuxtag-2026-opendesk-pt.md` | — |
+| 🇳🇱 Nederlands | `linuxtag-2026-opendesk-nl.md` | — |
+| 🇸🇪 Svenska | `linuxtag-2026-opendesk-sv.md` | — |
+| 🇦🇩 Català | `linuxtag-2026-opendesk-ca.md` | — |
+| 🇬🇱 Galego | `linuxtag-2026-opendesk-gl.md` | — |
+| 🇩🇰 dansk | `linuxtag-2026-opendesk-da.md` | — |
+| 🇫🇮 suomi | `linuxtag-2026-opendesk-fi.md` | — |
+| 🇵🇱 polski | `linuxtag-2026-opendesk-pl.md` | — |
+| 🇨🇿 čeština | `linuxtag-2026-opendesk-cs.md` | — |
+| 🇷🇴 română | `linuxtag-2026-opendesk-ro.md` | — |
+| 🇸🇰 slovenčina | `linuxtag-2026-opendesk-sk.md` | — |
+| 🇭🇺 magyar | `linuxtag-2026-opendesk-hu.md` | — |
+| 🇭🇷 hrvatski | `linuxtag-2026-opendesk-hr.md` | — |
+| 🇸🇮 slovenščina | `linuxtag-2026-opendesk-sl.md` | — |
+| 🇬🇷 Ελληνικά | `linuxtag-2026-opendesk-el.md` | — |
+| 🇧🇬 български | `linuxtag-2026-opendesk-bg.md` | — |
+| 🇪🇪 eesti | `linuxtag-2026-opendesk-et.md` | — |
+| 🇱🇹 lietuvių | `linuxtag-2026-opendesk-lt.md` | — |
+| 🇱🇻 latviešu | `linuxtag-2026-opendesk-lv.md` | — |
+| 🇬🇪 Gaeilge | `linuxtag-2026-opendesk-ga.md` | — |
+| 🇲🇹 Malti | `linuxtag-2026-opendesk-mt.md` | — |
+| 🇷🇸 српски | `linuxtag-2026-opendesk-sr.md` | — |
+| 🇺🇦 українська | `linuxtag-2026-opendesk-uk.md` | — |
+| 🇧🇪 беларуская | `linuxtag-2026-opendesk-be.md` | — |
+| 🇨🇳 中文 | `linuxtag-2026-opendesk-zh.md` | [▶ View](https://htmlpreview.github.io/?https://github.com/tobias-weiss-ai-xr/opendesk-edu/blob/main/docs/presentations/linuxtag-2026/linuxtag-2026-opendesk-zh.html) |
 
 ## Voraussetzungen
 
@@ -72,4 +72,4 @@ media/                        # Bilder (4 Dateien)
 
 ## Lizenz
 
-Interne Verwendung - HRZ Uni Marburg
+Apache-2.0 — see [LICENSE](../../LICENSE)
