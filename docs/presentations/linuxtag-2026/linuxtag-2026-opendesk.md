@@ -4,13 +4,15 @@ theme: default
 paginate: true
 ---
 
-![bg](media/opendesk-portal2.png)
+<!-- _class: lead -->
 
 # openDesk: Komfortabel und Souverän?
 
-LinuxTag 2026 | 28.03.2026
+🎓 openDesk Edu — Digitale Souveränität an Hochschulen
 
-Tobias Weiß | HRZ Zentrale Systeme | Universität Marburg
+Chemnitzer Linux-Tage 2026 · 28.03.2026
+
+Tobias Weiß · HRZ Zentrale Systeme · Universität Marburg
 
 ---
 
@@ -30,12 +32,13 @@ Tobias Weiß | HRZ Zentrale Systeme | Universität Marburg
 # Was ist openDesk?
 
 - **Open-Source-Alternative** zu M365 & Google Workspace 🐧
+- **Von Behörden für Behörden** konzipiert (BMI / ZenDiS) 🏛️
 - **BSI-zertifiziert** (deutsche Souveränität) 📜
 - **Cloud-Native:** Kubernetes-basierter Arbeitsplatz ☁️
 - **Modulare Komponenten:**
   - Chat, Dateien, Wiki, Projektmanagement
   - E-Mail, Diagramme, Weboffice, Video
-- **Self-Hosted** im eigenen Rechenzentrum 🖥️
+- **Self-Hosted** oder **SaaS** 🖥️
 
 ---
 
@@ -59,19 +62,13 @@ Tobias Weiß | HRZ Zentrale Systeme | Universität Marburg
 **Entwicklung** 🔀              | **Community** 👥
 --------------------------------|---------------------------
 Start: Juli 2023                | Contributors: ~ 70
-Laufzeit: ~ 2,5 Jahre           | Organisationen: ~ 27
+Laufzeit: ~ 3 Jahre           | Organisationen: ~ 27
 Commits: ~ 1.500                |
 Releases: ~ 150                 |
 
 **OpenCode.de** 🛡️              | **Supply Chain** 🔒
 BMI-geförderte Plattform        | Signierte Container-Images
 Souveräne Cloud-Infrastruktur   | SBOM für alle Komponenten
-
----
-
-# OX App Suite — E-Mail und Kommunikation
-
-![height:500px](media/opendesk-openxchange.png)
 
 ---
 
@@ -129,18 +126,9 @@ python3 dev/charts-local.py --revert
 
 # User-Import: Provisioning
 
-- **UDM REST API** für User-Import 👤
-  - Import aus CSV/ODS-Templates
-  - Unterstützung von LDAP-Gruppen, Passwörtern
-  - OX Contexts für Groupware-Module 🔄
-- **Account Linking Extension** 🔗
-  - SAML-Identity Provider Verknüpfung
-  - Keycloak API für Identity linking
-  - Automatische Erstverknüpfung bei Import
-- **Demo-Modus** 🖼️
-  - Zufällige Test-Accounts generieren
-  - Profilbilder: thispersondoesnotexist.com
-  - Umfangreiche Demo-Daten
+- **UDM REST API** — CSV/ODS-Import, LDAP-Gruppen 👤
+- **Account Linking** — SAML-Identity Verknüpfung 🔗
+- **Demo-Modus** — Test-Accounts, Profilbilder 🖼️
 
 ---
 
@@ -157,15 +145,15 @@ python3 dev/charts-local.py --revert
 
 ---
 
-# 🎓 Introducing openDesk Edu
+# 🎓 openDesk Edu — Überblick
 
-- **Extension of openDesk CE** for educational institutions 🏫
-- **What we added:**
-  - Learning Management Systems (ILIAS, Moodle)
-  - Video conferencing for teaching (BigBlueButton)
-  - Alternative file sync (OpenCloud)
-- **All integrated with Keycloak SSO** 🔐
-- **Deploy everything with `helmfile apply`** ⚡
+- **Erweiterung von openDesk CE** für Hochschulen 🏫
+- **Neue Komponenten:**
+  - Lernplattformen (ILIAS, Moodle)
+  - Videokonferenzen für die Lehre (BigBlueButton)
+  - Alternative Dateisynchronisation (OpenCloud)
+- **Alle mit Keycloak SSO integriert** 🔐
+- **Alles mit `helmfile apply` deployierbar** ⚡
 
 **GitHub:** [github.com/tobias-weiss-ai-xr/opendesk-edu](https://github.com/tobias-weiss-ai-xr/opendesk-edu)
 
@@ -179,6 +167,49 @@ python3 dev/charts-local.py --revert
 | 📖 Moodle | 🔄 Beta | LMS mit Shibboleth — Plugins, Gradebook |
 | 🎥 BigBlueButton | 🔄 Beta | Videokonferenzen für Lehre — Recording, Whiteboard |
 | ☁️ OpenCloud | 🔄 Beta | CS3-basierter Dateisync — Alternative zu Nextcloud |
+
+---
+
+# 🔐 ILIAS SSO — Architecture
+
+<table>
+<tr>
+<td width="50%">
+
+![width:100%](media/opendesk-edu-ilias-integration.gif)
+
+</td>
+<td width="50%">
+
+**6-Schritt SSO-Flow:**
+
+1. 🖥️ Portal → ILIAS Kachel
+2. 🔄 ILIAS → Shibboleth SP
+3. 🔑 Keycloak → Uni-IdP
+4. 🎓 Login (weblogin.uni-marburg.de)
+5. 📨 SAML Assertion zurück
+6. ✅ ILIAS Dashboard
+
+**Stack:** Apache + Shibboleth SP + Keycloak Broker
+
+</td>
+</tr>
+</table>
+
+---
+
+<div style="font-size: 0.85em;">
+
+# 🔧 ILIAS Deployment — Lessons Learned
+
+| Problem | Lösung |
+|---------|---------|
+| `Wrong Login or Password` | SAML NameFormat fehlte in attribute-map.xml |
+| Attribute-Namen falsch | Uni-IdP sendet `givenname`/`surname` |
+| `handlerSSL` → 404 | Internes TLS: Apache SSL auf Port 8443 (v5) |
+| Accounts deaktiviert | `shib_activate_new = 0` |
+| SAML Timeout | 60s → 300s |
+| Health Check | CronJob: curl SSO-Redirect (stündlich) |
 
 ---
 
@@ -203,13 +234,10 @@ helmfile -e default apply
 
 # Netzwerkkonfiguration
 
-- **Ingress-Controller:**
-  - haproxy-ingress (Default)
-  - nginx-ingress (veraltet)
-- **Traefik als Reverse Proxy** 🔄
-  - HTTP/HTTPS-Terminierung, LoadBalancer (MetalLB)
-- **Hinweis:** ingress-nginx Retirement ⚠️
-  - Migration zu haproxy bereits durchgeführt
+- **Ingress-Controller:** haproxy-ingress
+- **Reverse Proxy:** Traefik — HTTP/HTTPS-Terminierung 🔄
+- **LoadBalancer:** MetalLB
+- **Alle Ingresses** auf haproxy migriert ✅
 
 ---
 
@@ -227,13 +255,13 @@ git checkout -b myrelease upstream/tags/v1.12.2
 git pull
 
 # Aenderungen pruefen
-helmfile diff -e staging
+helmfile diff -e hrz
 
 # Updates anwenden
-helmfile apply -e staging
+helmfile apply -e hrz
 
 # Bei Bedarf zurueckrollen
-helmfile rollback -e staging
+helmfile rollback -e hrz
 ```
 
 - **Kontrollierte Updates via Helmfile** 🔄
@@ -289,16 +317,16 @@ helmfile rollback -e staging
 
 ---
 
-# 🤝 Call to Action
+# 🤝 Mitmachen!
 
-**Help us build openDesk Edu for universities!**
+**Helft uns, openDesk Edu für Hochschulen aufzubauen!**
 
-- ⭐ **Star the repo:** [github.com/tobias-weiss-ai-xr/opendesk-edu](https://github.com/tobias-weiss-ai-xr/opendesk-edu)
-- 🧪 **Test locally:** Deploy with helmfile and report issues
-- 🐛 **Report bugs:** Open issues for problems or feature requests
-- 💻 **Contribute:** PRs welcome — see CONTRIBUTING.md
+- ⭐ **Repo favorisieren:** [github.com/tobias-weiss-ai-xr/opendesk-edu](https://github.com/tobias-weiss-ai-xr/opendesk-edu)
+- 🧪 **Lokal testen:** Mit Helmfile deployen und Feedback geben
+- 🐛 **Probleme melden:** Issues für Bugs oder Feature-Wünsche
+- 💻 **Beitragen:** PRs willkommen — siehe CONTRIBUTING.md
 
-**Let's make sovereign educational software together!** 🎓
+**Gemeinsam souveräne Hochschul-Software bauen!** 🎓
 
 ---
 

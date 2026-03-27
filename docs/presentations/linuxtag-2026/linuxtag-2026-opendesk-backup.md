@@ -72,7 +72,7 @@ paginate: true
 
 - **PostgreSQL:** Connection Pooling (PgBouncer) 💾
 - **Caching:** Redis für häufig abgerufene Daten 🧠
-- **Webserver:** Nginx-Worker-Prozesse optimieren 🖥️
+- **Webserver:** HAProxy-Worker-Prozesse optimieren 🖥️
 - **Synapse:** Media-Repository-Optimierung 📦
 
 ---
