@@ -159,12 +159,12 @@ drop-in alternatives, not replacements. This is a **superset** of openDesk CE, n
 
 ## 🎤 Presentations
 
-| Event | Language | Topic | Format |
-|:------|:--------|:------|:-------|
-| [CLT 2026 (DE)](./docs/presentations/linuxtag-2026/linuxtag-2026-opendesk.md) | 🇩🇪 Deutsch | openDesk an der Uni Marburg — Deployment & openDesk Edu | Marp (HTML/PDF) |
-| [CLT 2026 (EN)](./docs/presentations/linuxtag-2026/linuxtag-2026-opendesk-en.md) | 🇬🇧 English | openDesk at University of Marburg — Deployment & openDesk Edu | Marp (HTML/PDF) |
-| [CLT 2026 (ZH)](./docs/presentations/linuxtag-2026/linuxtag-2026-opendesk-zh.md) | 🇨🇳 中文 | openDesk 马堡大学部署与 openDesk Edu | Marp (HTML/PDF) |
-| [CLT 2026 (FR)](./docs/presentations/linuxtag-2026/linuxtag-2026-opendesk-fr.md) | 🇫🇷 Français | openDesk à l'Université de Marburg — Déploiement & openDesk Edu | Marp (HTML/PDF) |
+| Event | Language | Source | HTML |
+|:------|:--------|:-------|:-----|
+| CLT 2026 | 🇩🇪 Deutsch | [Markdown](./docs/presentations/linuxtag-2026/linuxtag-2026-opendesk.md) | [View](./docs/presentations/linuxtag-2026/linuxtag-2026-opendesk.html) |
+| CLT 2026 | 🇬🇧 English | [Markdown](./docs/presentations/linuxtag-2026/linuxtag-2026-opendesk-en.md) | [View](./docs/presentations/linuxtag-2026/linuxtag-2026-opendesk-en.html) |
+| CLT 2026 | 🇨🇳 中文 | [Markdown](./docs/presentations/linuxtag-2026/linuxtag-2026-opendesk-zh.md) | [View](./docs/presentations/linuxtag-2026/linuxtag-2026-opendesk-zh.html) |
+| CLT 2026 | 🇫🇷 Français | [Markdown](./docs/presentations/linuxtag-2026/linuxtag-2026-opendesk-fr.md) | [View](./docs/presentations/linuxtag-2026/linuxtag-2026-opendesk-fr.html) |
 
 ---
 
