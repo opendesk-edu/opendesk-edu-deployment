@@ -4,15 +4,17 @@ theme: default
 paginate: true
 ---
 
+![bg](media/readme-lead-image.svg)
+
 <!-- _class: lead -->
 
-# openDesk: Pohodlný a Suverénny?
+# 🏛️ openDesk: Pohodlný a Suverénny?
 
 🎓 openDesk Edu — Digitálna Suverenita na Univerzitách
 
 Chemnitzer Linux-Tage 2026 · 28.03.2026
 
-Tobias Weiß · HRZ Zentrale Systeme · Universität Marburg · [https://mastodon.social/@graphwiz_ai](https://mastodon.social/@graphwiz_ai)
+Tobias Weiß · HRZ Zentrale Systeme · Universität Marburg
 
 ---
 

@@ -4,15 +4,17 @@ theme: default
 paginate: true
 ---
 
+![bg](media/readme-lead-image.svg)
+
 <!-- _class: lead -->
 
-# openDesk: 舒适与主权兼得？
+# 🏛️ openDesk: 舒适与主权兼得？
 
 🎓 openDesk Edu — 高校数字主权
 
 Chemnitzer Linux-Tage 2026 · 28.03.2026
 
-Tobias Weiß · HRZ Zentrale Systeme · Universität Marburg · [https://mastodon.social/@graphwiz_ai](https://mastodon.social/@graphwiz_ai)
+Tobias Weiß · HRZ Zentrale Systeme · Universität Marburg
 
 ---
 

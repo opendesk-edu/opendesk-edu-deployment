@@ -4,15 +4,17 @@ theme: default
 paginate: true
 ---
 
+![bg](media/readme-lead-image.svg)
+
 <!-- _class: lead -->
 
-# openDesk: Komfortabel und Souverän?
+# 🏛️ openDesk: Komfortabel und Souverän?
 
 🎓 openDesk Edu — Digitale Souveränität an Hochschulen
 
 Chemnitzer Linux-Tage 2026 · 28.03.2026
 
-Tobias Weiß · HRZ Zentrale Systeme · Universität Marburg · @graphwiz_ai@mastodon.social
+Tobias Weiß · HRZ Zentrale Systeme · Universität Marburg
 
 ---
 
