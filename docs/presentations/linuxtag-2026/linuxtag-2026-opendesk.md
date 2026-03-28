@@ -52,8 +52,6 @@ Wir diskutieren nicht Tools — wir diskutieren **Souveränität**:
 
 ---
 
-**---**
-
 ## 🎉 Die Vision: Souverän statt Dependencies
 
 Als openDesk für Universities beginnen, gibt es **3 Gründe**:
@@ -74,24 +72,6 @@ Als openDesk für Universities beginnen, gibt es **3 Gründe**:
 - ⚡ Freiheit: Features selbst implementieren
 
 ---
-
-**---**
-
-## 🦊 Ein kleiner "Ice Breaker" — Wer möchte das?
-
-[Fragen Sie sich: Rechtsberatungstool für Ihre GDPR-Anträge erweiden
-oder erweitertheit der EDI-Schnittstelle für Ihre Finanz-Verwaltung?
-Maschinen, Schemata, Änderungen, Monitoring...] 
-- Und das **ohne** Vendor-Contract?
-- Mit...
-- 🛠️ Sv|... betray...
-- 🔑...
-- ...besge... 
-
-[Bedingungen zu erfüllen]
-
----
-**---**
 
 # Digitale Souveränität — Die vier Säulen
 
