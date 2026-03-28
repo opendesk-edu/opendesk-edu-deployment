@@ -313,6 +313,32 @@ video portal built on top of Opencast (Rust, AGPL-3.0).
 - [ ] Backup integration with k8up
 - [ ] GPU scheduling support for transcription (optional)
 
+### SNIpR — Lightweight Recording Alternative
+
+[SNIpR](https://github.com/reinauer/SNIpR) (MIT license, Rust) is a lightweight lecture recording
+alternative by the same author as F13's transcription service. Perfect for smaller deployments or
+universities that want maximum control with minimal infrastructure.
+
+| Feature | Opencast | SNIpR |
+|--------|---------|---------|
+| Language | Java (large) | Rust (tiny) |
+| Complexity | Microservices architecture | Single binary |
+| Storage | Requires separate DB | Simple file-based |
+| Transcription | Built-in Whisper GPU | External (F13 or stand-alone) |
+| Resources | Heavy | Lightweight |
+| LTI | Extensive | Basic |
+| Use case | Enterprise | Small-to-medium universities |
+
+**Recommendation:** Use Opencast for infrastructure-rich campuses, SNIpR for focused teaching needs.
+
+- [ ] Helm chart for SNIpR recording service
+- [ ] SSO integration via Keycloak (OIDC)
+- [] Integration with F13 transcription service for auto-transcription
+- [ ] Storage backend (S3-compatible for recordings)
+- [ ] LTI 1.3 integration with ILIAS and Moodle
+- [ ] Portal tile for SNIpR
+- [ ] Backup integration with k8up
+
 ---
 
 ## v2.0 — Course Evaluation & E-Portfolio
