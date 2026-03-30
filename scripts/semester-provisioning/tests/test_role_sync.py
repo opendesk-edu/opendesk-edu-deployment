@@ -27,6 +27,10 @@ def test_basic_role_sync_maps_student(monkeypatch):
 
     KCUser = role_sync.KCUser
     LMSUser = role_sync.LMSUser
+    # Pydantic requires model_rebuild() when models are loaded via importlib
+    # to resolve forward references and type annotations
+    KCUser.model_rebuild()
+    LMSUser.model_rebuild()
     kc_users: List[role_sync.KCUser] = [KCUser(id="u1", realm_roles=["student"])]
 
     results = engine.sync(kc_users)
