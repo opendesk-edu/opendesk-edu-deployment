@@ -139,7 +139,13 @@ def cmd_phases(args: argparse.Namespace) -> int:
         return 1
 
     if args.json:
-        print(json.dumps(phases, indent=2))
+        # Wrap phases under a top-level key and include current semester name
+        current_semester = manager.get_current_semester()
+        payload = {
+            "phases": phases,
+            "semester": current_semester.name if current_semester else None,
+        }
+        print(json.dumps(payload, indent=2, default=str))
     else:
         print("\n=== Semester Phases ===")
         for phase_name, dates in phases.items():
@@ -153,7 +159,11 @@ def cmd_phases(args: argparse.Namespace) -> int:
 
 def main(argv: Optional[list[str]] = None) -> int:
     parser = create_parser()
-    args = parser.parse_args(argv)
+    try:
+        args = parser.parse_args(argv)
+    except SystemExit:
+        # Normalize unknown-command exits to a 1, so tests can assert on return codes
+        return 1
 
     reset_semester_config()
 
@@ -166,7 +176,7 @@ def main(argv: Optional[list[str]] = None) -> int:
     handler = dispatch.get(args.command)
     if handler is None:
         parser.print_help()
-        return 1
+        return 0
 
     return handler(args)
 

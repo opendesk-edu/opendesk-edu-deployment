@@ -60,6 +60,7 @@ def sample_course(database):
             "instructor_ids": ["prof-001"],
             "expected_enrollment": 50,
             "lms": "ilias",
+            "lms_course_id": "ilias_ref_123",
             "category": "test",
             "status": "active",
         }
@@ -217,6 +218,7 @@ class TestBulkArchiveSemester:
                 "title": "Good Course",
                 "course_code": "GOOD-1",
                 "lms": "ilias",
+                "lms_course_id": "ilias_good_123",
                 "status": "active",
             }
         )
@@ -226,15 +228,32 @@ class TestBulkArchiveSemester:
                 "title": "Bad Course",
                 "course_code": "BAD-1",
                 "lms": "ilias",
+                "lms_course_id": "ilias_bad_456",
                 "status": "active",
             }
         )
-        database.update_course(course2["course_id"], {"status": "archived"})
-        summary = bulk_archive_semester(
-            "2026fail",
-            database=database,
-            audit_logger=audit_logger,
-        )
+
+        original_archive = archive_course
+
+        def _selective_archive(course_id, **kwargs):
+            if course_id == course2["course_id"]:
+                return ArchiveResult(
+                    course_id=course_id,
+                    success=False,
+                    error="Simulated archival failure / Simulierter Archivierungsfehler",
+                )
+            return original_archive(course_id, **kwargs)
+
+        with mock.patch(
+            "archival.bulk_archive.archive_course", side_effect=_selective_archive
+        ):
+            summary = bulk_archive_semester(
+                "2026fail",
+                database=database,
+                audit_logger=audit_logger,
+            )
+
+        assert summary.total_courses == 2
         assert summary.archived_courses == 1
         assert summary.failed_courses == 1
 

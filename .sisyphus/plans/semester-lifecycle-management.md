@@ -1005,8 +1005,8 @@ ARCHIVE_RETENTION_YEARS=5
 - [x] Implement role synchronization engine
 - [x] Create semester lifecycle manager
 - [x] Implement course archival logic
-- [ ] Create Helm chart for deployment
-- [ ] Write automation cronJobs
+- [x] Create Helm chart for deployment
+- [x] Write automation cronJobs
 - [ ] Write unit tests
 - [ ] Write integration tests
 - [ ] Write bilingual documentation

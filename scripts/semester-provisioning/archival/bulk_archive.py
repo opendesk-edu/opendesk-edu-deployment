@@ -138,13 +138,18 @@ def bulk_archive_semester(
                 summary.total_frozen_enrollments += result.frozen_enrollments
                 summary.total_revoked_access += result.revoked_access_count
             else:
-                summary.failed_courses += 1
-                summary.errors.append(
-                    {
-                        "course_id": course_id,
-                        "error": result.error or "unknown error",
-                    }
-                )
+                # Treat already-archived courses as skipped rather than failures
+                error = (result.error or "").lower()
+                if "already archived" in error:
+                    summary.skipped_courses += 1
+                else:
+                    summary.failed_courses += 1
+                    summary.errors.append(
+                        {
+                            "course_id": course_id,
+                            "error": result.error or "unknown error",
+                        }
+                    )
 
         except Exception as exc:
             summary.failed_courses += 1
