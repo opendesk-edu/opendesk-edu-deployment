@@ -1,0 +1,11 @@
+# SPDX-FileCopyrightText: 2026 openDesk Edu Contributors
+# SPDX-License-Identifier: Apache-2.0
+typo3:
+  enabled: true
+mariadb:
+  enabled: true
+  auth:
+    rootPassword: "test"
+    username: "typo3"
+    password: "typo3test"
+    database: "typo3"
