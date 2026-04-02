@@ -1,0 +1,42 @@
+# SPDX-FileCopyrightText: 2026 openDesk Edu Contributors
+# SPDX-License-Identifier: Apache-2.0
+suite: test configmap
+templates:
+  - configmap.yaml
+tests:
+  - it: should create a ConfigMap with correct values
+    asserts:
+      - hasDocuments:
+          count: 1
+      - isKind:
+          of: ConfigMap
+      - equal:
+          path: data.GROMMUNIO_TIMEZONE
+          value: Europe/Berlin
+      - equal:
+          path: data.GROMMUNIO_LANGUAGE
+          value: English
+      - equal:
+          path: data.GROMMUNIO_DB_TYPE
+          value: mariadb
+      - equal:
+          path: data.GROMMUNIO_DB_PORT
+          value: "3306"
+      - equal:
+          path: data.GROMMUNIO_CACHE_PORT
+          value: "6379"
+      - equal:
+          path: data.GROMMUNIO_MAIL_DOMAIN
+          value: opendesk.example.com
+      - equal:
+          path: data.GROMMUNIO_ACTIVESYNC_ENABLED
+          value: "true"
+      - equal:
+          path: data.GROMMUNIO_OUTLOOK_MAPI_ENABLED
+          value: "true"
+      - equal:
+          path: data.GROMMUNIO_LOGGING_LEVEL
+          value: INFO
+      - equal:
+          path: data.GROMMUNIO_MONITORING_ENABLED
+          value: "true"

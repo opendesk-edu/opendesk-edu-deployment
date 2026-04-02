@@ -1,0 +1,49 @@
+# SPDX-FileCopyrightText: 2026 openDesk Edu Contributors
+# SPDX-License-Identifier: Apache-2.0
+apiVersion: v2
+name: grommunio
+description: >
+  Grommunio is a groupware solution providing email, calendar, contacts, and tasks
+  with native ActiveSync, EWS, and MAPI/HTTP support for seamless Outlook and mobile integration.
+type: application
+version: 0.1.0
+appVersion: "2025.01.1"
+keywords:
+  - grommunio
+  - groupware
+  - email
+  - calendar
+  - activesync
+  - ews
+  - mapi
+  - outlook
+home: https://grommunio.com/
+sources:
+  - https://github.com/grommunio/grommunio-docker
+  - https://docs.grommunio.com/
+maintainers:
+  - name: openDesk Edu Team
+    email: info@opendesk.edu
+annotations:
+  category: Productivity
+  licenses: GPL-3.0
+  images: |
+    - name: grommunio
+      image: docker.io/grommunio/grommunio:2025.01.1
+  capabilities:
+    - Email
+    - Calendar
+    - Contacts
+    - Tasks
+    - ActiveSync
+    - EWS
+    - MAPI/HTTP
+  supports:
+    - outlook
+    - ios
+    - android
+    - windows
+  requires:
+    - mariadb
+    - redis
+    - keycloak
