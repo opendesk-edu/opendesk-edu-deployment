@@ -74,4 +74,31 @@ global:
   ## Ref: https://kubernetes.io/docs/concepts/containers/images/#image-pull-policy
   #
   imagePullPolicy: "IfNotPresent"
+
+  ## =============================================================================
+  ## GROMMUNIO CONFIGURATION
+  ## Set enabled: true to use Grommunio instead of SOGo/oxappsuite
+  ## =============================================================================
+  grommunio:
+    enabled: false
+    version: "2025.01.1"
+    database:
+      type: mariadb
+      host: mariadb-headless
+      username: grommunio_user
+      password: {{ env "GROMMUNIO_DB_PASSWORD" | default "" | quote }}
+    cache:
+      type: redis
+      host: redis-headless
+    authentication:
+      method: oidc
+      keycloak_realm: opendesk
+      keycloak_client: grommunio
+    resources:
+      requests:
+        memory: "4Gi"
+        cpu: "1000m"
+      limits:
+        memory: "8Gi"
+        cpu: "2000m"
 ...
