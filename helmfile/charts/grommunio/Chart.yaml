@@ -13,6 +13,8 @@ keywords:
   - groupware
   - email
   - calendar
+  - contacts
+  - tasks
   - activesync
   - ews
   - mapi
@@ -27,23 +29,6 @@ maintainers:
 annotations:
   category: Productivity
   licenses: GPL-3.0
-  images: |
-    - name: grommunio
-      image: docker.io/grommunio/grommunio:2025.01.1
-  capabilities:
-    - Email
-    - Calendar
-    - Contacts
-    - Tasks
-    - ActiveSync
-    - EWS
-    - MAPI/HTTP
-  supports:
-    - outlook
-    - ios
-    - android
-    - windows
-  requires:
-    - mariadb
-    - redis
-    - keycloak
+  description: Grommunio is a groupware solution providing email, calendar, contacts, and tasks with native ActiveSync, EWS, and MAPI/HTTP support for seamless Outlook and mobile integration
+  dependencies: Requires MariaDB and Redis
+  supported_platforms: Windows, iOS, Android, Outlook
