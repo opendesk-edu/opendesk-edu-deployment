@@ -40,3 +40,43 @@ tests:
       - equal:
           path: data.GROMMUNIO_MONITORING_ENABLED
           value: "true"
+  - it: should include LDAP URL when LDAP is enabled
+    asserts:
+      - equal:
+          path: data.GROMMUNIO_LDAP_ENABLED
+          value: "true"
+      - equal:
+          path: data.GROMMUNIO_LDAP_URL
+          value: "ldap://openldap:389"
+      - equal:
+          path: data.GROMMUNIO_LDAP_HOST
+          value: openldap
+      - equal:
+          path: data.GROMMUNIO_LDAP_PORT
+          value: "389"
+  - it: should not include LDAP settings when LDAP is disabled
+    set:
+      grommunio.ldap.enabled: false
+    asserts:
+      - notExists:
+          path: data.GROMMUNIO_LDAP_ENABLED
+      - notExists:
+          path: data.GROMMUNIO_LDAP_URL
+  - it: should include OIDC discovery URL when OIDC is enabled
+    asserts:
+      - equal:
+          path: data.GROMMUNIO_AUTH_METHOD
+          value: "oidc"
+      - equal:
+          path: data.GROMMUNIO_OIDC_DISCOVERY_URL
+          value: "https://keycloak.opendesk.example.com/realms/opendesk/.well-known/openid-configuration"
+  - it: should use SAML auth method when OIDC is disabled and SAML is enabled
+    set:
+      grommunio.auth.oidc.enabled: false
+      grommunio.auth.saml.enabled: true
+    asserts:
+      - equal:
+          path: data.GROMMUNIO_AUTH_METHOD
+          value: "saml"
+      - notExists:
+          path: data.GROMMUNIO_OIDC_DISCOVERY_URL

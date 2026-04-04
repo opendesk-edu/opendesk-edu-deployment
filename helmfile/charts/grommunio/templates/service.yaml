@@ -6,10 +6,12 @@ metadata:
   name: {{ include "grommunio.fullname" . }}
   labels:
 {{ include "grommunio.labels" . | nindent 4 }}
+  {{- with .Values.grommunio.service.annotations }}
   annotations:
-    {{- range $key, $value := .Values.grommunio.service.annotations }}
+    {{- range $key, $value := . }}
     {{ $key }}: {{ $value | quote }}
     {{- end }}
+  {{- end }}
 spec:
   type: {{ .Values.grommunio.service.type }}
   ports:

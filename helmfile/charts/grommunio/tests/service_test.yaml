@@ -29,8 +29,8 @@ tests:
           path: spec.ports[1].port
           value: 9090
       - equal:
-          path: spec.selector."app.kubernetes.io/name"
+          path: spec.selector["app.kubernetes.io/name"]
           value: grommunio
       - equal:
-          path: spec.selector."app.kubernetes.io/instance"
+          path: spec.selector["app.kubernetes.io/instance"]
           value: RELEASE-NAME

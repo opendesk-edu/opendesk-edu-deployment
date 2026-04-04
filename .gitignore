@@ -30,6 +30,9 @@ Thumbs.db
 *.swo
 *~
 
+# Windows artifacts
+nul
+
 # Ignore ./log directory and *.log files
 logs
 *.log
@@ -46,6 +49,13 @@ helmfile-child.yaml-*/
 venv/
 __pycache__/
 *.pyc
+
+# Python test/coverage artifacts
+htmlcov/
+.coverage
+.coverage.*
+.pytest_cache/
+.ruff_cache/
 
 # Ignore sensitive credential files
 k8up-*.yaml

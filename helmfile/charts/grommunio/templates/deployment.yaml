@@ -19,7 +19,6 @@ spec:
   template:
     metadata:
       labels:
-{{ include "grommunio.selectorLabels" . | nindent 8 }}
 {{ include "grommunio.labels" . | nindent 8 }}
     spec:
 {{- include "grommunio.imagePullSecrets" . | nindent 6 }}
