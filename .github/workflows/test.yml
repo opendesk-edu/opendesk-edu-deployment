@@ -40,3 +40,14 @@ jobs:
 
       - name: Run yamllint
         run: make yamllint
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install cspell
+        run: npm install -g cspell
+
+      - name: Run spellcheck
+        run: make spellcheck

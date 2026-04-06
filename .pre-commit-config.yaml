@@ -1,0 +1,60 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+        args: [--allow-multiple-documents]
+      - id: check-added-large-files
+        args: [--maxkb=1024]
+      - id: check-case-conflict
+      - id: check-json
+      - id: check-merge-conflict
+      - id: check-toml
+      - id: detect-private-key
+      - id: mixed-line-ending
+        args: [--fix=lf]
+
+  - repo: https://github.com/adrienverge/yamllint
+    rev: v1.35.1
+    hooks:
+      - id: yamllint
+        args: [--config-file=.yamllint]
+        files: (helmfile|docs|\.github)/.*\.ya?ml$
+
+  - repo: https://github.com/igorshubovych/markdownlint-cli
+    rev: v0.39.0
+    hooks:
+      - id: markdownlint
+        args: [--fix]
+        files: \.md$
+
+  - repo: https://github.com/codespell-project/codespell
+    rev: v2.2.6
+    hooks:
+      - id: codespell
+        args: [--config=cspell.json]
+
+  - repo: local
+    hooks:
+      - id: helm-lint
+        name: Helm Lint
+        entry: bash -c 'cd helmfile && make lint'
+        language: system
+        files: helmfile/charts/.*\.ya?ml$
+        pass_filenames: false
+
+      - id: helm-template
+        name: Helm Template
+        entry: bash -c 'cd helmfile && make template'
+        language: system
+        files: helmfile/charts/.*\.ya?ml$
+        pass_filenames: false
+
+      - id: helmfile-syntax
+        name: Helmfile Syntax
+        entry: bash -c 'cd helmfile && helmfile -e default template > /dev/null'
+        language: system
+        files: (helmfile\.ya?ml|environments/.*\.ya?ml)$
+        pass_filenames: false

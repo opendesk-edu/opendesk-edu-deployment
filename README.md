@@ -37,7 +37,7 @@ An extension of [openDesk Community Edition](https://www.opencode.de/en/opendesk
 video conferencing (BigBlueButton ↔ Jitsi) and file sharing (OpenCloud ↔ Nextcloud) —
 all integrated with openDesk's existing Keycloak SSO and portal. Deploy everything on Kubernetes with a single `helmfile apply`.
 
-[Getting Started →](#-quick-start) &nbsp;·&nbsp; [What's Added →](#-whats-added-on-top-of-opendesk-ce) &nbsp;·&nbsp; [Roadmap →](./ROADMAP.md) &nbsp;·&nbsp; [All Components →](#-full-component-matrix)
+[Getting Started →](#-quick-start) &nbsp;·&nbsp; [What's Added →](#-whats-added-on-top-of-opendesk-ce) &nbsp;·&nbsp; [Roadmap →](./ROADMAP.md) &nbsp;·&nbsp; [All Components →](#-full-component-matrix) &nbsp;·&nbsp; [Local Dev →](./docs/local-development.md)
 
 <br/>
 
@@ -159,8 +159,11 @@ drop-in alternatives, not replacements. This is a **superset** of openDesk CE, n
 | ⬆️ Upgrades & Migrations | [docs/migrations.md](./docs/migrations.md) |
 | 📋 Requirements | [docs/requirements.md](./docs/requirements.md) |
 | 🚀 Getting Started | [docs/getting-started.md](./docs/getting-started.md) |
+| 💻 Local Development | [docs/local-development.md](./docs/local-development.md) |
 | 🔧 Advanced Customization | [docs/enhanced-configuration.md](./docs/enhanced-configuration.md) |
 | 🔌 External Services (edu) | [docs/external-services.md](./docs/external-services.md) |
+| 🔐 User Provisioning | [docs/user-provisioning.md](./docs/user-provisioning.md) |
+| 🌐 DFN-AAI Federation | [docs/dfn-aai-federation.md](./docs/dfn-aai-federation.md) |
 | 🏗️ Architecture | [docs/architecture.md](./docs/architecture.md) |
 | 🔐 Security | [docs/security.md](./docs/security.md) |
 | 📊 Scaling | [docs/scaling.md](./docs/scaling.md) |
