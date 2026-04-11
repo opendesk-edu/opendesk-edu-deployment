@@ -33,6 +33,10 @@ class Settings(BaseSettings):
     keycloak_admin_password: Optional[str] = None
     keycloak_client_id: str = "admin-cli"
 
+    hisinone_api_url: str = ""
+    hisinone_username: str = ""
+    hisinone_password: str = ""
+    hisinone_soap_endpoint: str = "/hisinone/rest/soap"
     hisinone_webhook_secret: Optional[str] = None
     hisinone_webhook_port: int = 8001
 
