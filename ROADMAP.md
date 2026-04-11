@@ -54,17 +54,17 @@ SAML Service Provider within this federation.
 Universities run on semester cycles (Wintersemester, Sommersemester). Courses, enrollments, and access
 need to follow this rhythm.
 
-- [ ] Course provisioning API (create/archive courses per semester)
-- [ ] Role-based access control tied to semester enrollment (instructor, student, tutor)
-- [ ] Automated course archival at semester end
-- [ ] Integration hook for campus management systems (HIS/LSF)
+- [x] Course provisioning API (FastAPI endpoints for courses, semesters, enrollments, archival)
+- [x] Role-based access control tied to semester enrollment
+- [x] Automated course archival at semester end (semester_manager._archive_semester_courses)
+- [x] Integration hook for campus management systems (HISinOne, Marvin)
 
 ### Backchannel Logout
 
 Critical for security — when a user logs out of the portal, all sessions across all services must
 be terminated.
 
-- [ ] Implement SAML backchannel logout for ILIAS, Moodle, BBB
+- [x] Implement SAML backchannel logout for ILIAS, Moodle, BBB
 - [ ] Implement OIDC backchannel logout for OpenCloud, Nextcloud
 - [ ] Central logout from portal propagates to all services
 
@@ -79,6 +79,14 @@ existing `scripts/user_import/` tooling.
 - [ ] UCS/UDM REST API integration for provisioning (LDAP groups, CSV/ODS import)
 - [ ] Docker image for standalone execution
 - [ ] Documentation and operational runbook
+
+### Infrastructure & Testing
+
+- [x] Keycloak sync client abstract methods (implemented)
+- [x] Real HTTP API clients for LMS systems (Moodle, ILIAS, Keycloak)
+- [x] Helm unittest coverage for all education charts (332 tests)
+- [x] Health probes (liveness/readiness) on all education chart deployments
+- [x] .pre-commit-config.yaml
 
 ---
 
@@ -174,19 +182,23 @@ HISinOne (immatrikulation) → LDAP/AD (existing university IdM) → Keycloak (u
 HISinOne (exmatrikulation) → LDAP/AD → Keycloak (user deactivation) → access revoked
 ```
 
-- [ ] Keycloak LDAP User Federation with the university's existing LDAP/AD
-- [ ] Group mapping: HISinOne roles → Keycloak groups → openDesk service access
+- [x] Keycloak LDAP User Federation with the university's existing LDAP/AD
+- [x] Group mapping: HISinOne roles → Keycloak groups → openDesk service access
   - `student` → LMS access, course enrollment, file sharing
   - `employee` → email, groupware, project management
   - `lecturer` → LMS course owner, video conferencing host
   - `faculty:PHIL` → faculty-specific portal tiles and permissions
-- [ ] Account lifecycle automation:
+- [x] Account lifecycle automation:
   - Immatrikulation → create Keycloak user, assign base groups
   - Beurlaubung (leave of absence) → suspend service access, keep account
   - Exmatrikulation → deactivate account, archive data, revoke access
   - Role change (student → staff) → update group memberships
-- [ ] Semester re-registration (Rückmeldung) verification — disable accounts for students who don't re-register
-- [ ] Guest lecturer provisioning — temporary accounts with time-limited access
+- [x] Semester re-registration (Rückmeldung) verification — disable accounts for students who don't re-register
+- [x] Guest lecturer provisioning — temporary accounts with time-limited access
+- [x] DSGVO compliance & consent management (database migration, stored procedures, retention policy)
+- [x] HISinOne-Proxy Helm chart
+- [x] TCP event listener configuration
+- [x] Event handler with retry logic and dead-letter queue
 
 ### Phase 2: Course Synchronization
 
@@ -201,34 +213,39 @@ HISinOne (semester start) → HISinOne-Proxy → openDesk Integration Layer
   → Nextcloud/OpenCloud: create course file shares (optional)
 ```
 
-- [ ] Extend HISinOne-Proxy to support openDesk as additional target alongside ILIAS ECS
-- [ ] Semester-triggered bulk course creation (all courses for upcoming semester)
-- [ ] Continuous incremental sync:
+- [x] Extend HISinOne-Proxy to support openDesk as additional target alongside ILIAS ECS
+- [x] Semester-triggered bulk course creation (all courses for upcoming semester)
+- [x] Continuous incremental sync:
   - New enrollments → add student to LMS course
   - Withdrawals → remove student from LMS course
   - Lecturer changes → update course ownership
   - Room/time changes → update course metadata
-- [ ] Parallel group mapping (HISinOne Parallelgruppen → ILIAS course groups / Moodle groups)
-- [ ] Course categorization based on HISinOne organizational structure (faculty → department → program)
-- [ ] Course archival at semester end (freeze enrollments, archive content)
+- [x] Parallel group mapping (HISinOne Parallelgruppen → ILIAS course groups / Moodle groups)
+- [x] Course categorization based on HISinOne organizational structure (faculty → department → program)
+- [x] Course archival at semester end (freeze enrollments, archive content)
 
 ### Phase 3: Schedule, Rooms & Exams
 
 Bring the semester calendar, room information, and exam data into the unified campus experience.
 
-- [ ] Unified semester calendar:
-  - Course schedule (day, time, room) from HISinOne → openDesk calendar / portal
+- [x] Unified semester calendar:
+  - Course schedule (day, time, room) from HISinOne → SOGo CalDAV (ICS, RFC 5545)
   - Exam dates and registration deadlines
   - Re-registration deadlines
   - Semester breaks and holidays
-- [ ] Room information display:
+- [x] Room information display:
   - Room details (capacity, equipment, accessibility) in course context
-  - Building maps / room finder integration
-- [ ] Exam management integration:
-  - Exam registration (Anmeldung zur Prüfung) from openDesk → HISinOne
-  - Grade display in openDesk dashboard after HISinOne grade entry
-  - Transcript of records (Notenauszug) accessible from portal
-  - Module completion tracking (ECTS progress toward degree)
+  - BBB room auto-provisioning from schedule data
+  - Room capacity validation for enrollments
+- [x] Exam management integration:
+  - Exam extraction from HISinOne (SOAP getPruefungen)
+  - Exam events created in LMS (ILIAS calendar, Moodle grade items)
+  - Seating plans uploaded to OpenCloud (WebDAV)
+- [ ] Building maps / room finder integration
+- [ ] Exam registration (Anmeldung zur Prüfung) from openDesk → HISinOne
+- [ ] Grade display in openDesk dashboard after HISinOne grade entry
+- [ ] Transcript of records (Notenauszug) accessible from portal
+- [ ] Module completion tracking (ECTS progress toward degree)
 
 ### Phase 4: Study Progress & Advising
 
@@ -516,15 +533,15 @@ Growing EU requirement via European Open Science Cloud (EOSC).
 
 ```
 2026 Q2   v1.0  Core platform + 13 education services (ILIAS, Moodle, BBB, OpenCloud, SOGo, Etherpad, BookStack, Planka, Zammad, LimeSurvey, Draw.io, Excalidraw, SSP)
-           v1.1  DFN-AAI federation + semester lifecycle + logout + user provisioning/deprovisioning
+           v1.1  Foundation: health probes, helm tests (332), API clients, CI, backchannel logout ✅
+           v1.5  Campus management phase 1-3: identity, courses, schedules, rooms, exams ✅
 2026 Q3   v1.2  Opencast + Tobira lecture recording
-2026 Q4   v1.5  HISinOne/Marvin campus management integration (phase 1: identity)
-2027 Q1   v1.5  HISinOne integration (phase 2: courses, phase 3: schedule/exams)
-2027 Q2   v1.5  HISinOne integration (phase 4: study progress, phase 5: intelligence)
-2027 Q3   v2.0  EvaP + Mahara (evaluation + portfolio)
-2027 Q4   v2.1  MRBS + LEIHS (room + equipment booking)
-2028 Q1   v3.0  R/exams + JPlag (digital examination)
-2028 Q2   v4.0  Local LLM + xAPI analytics + F13 sovereign AI assistant
+           v1.5  Campus management phase 4: study progress & advising
+2026 Q4   v1.5  Campus management phase 5: cross-service intelligence
+2027 Q1   v2.0  EvaP + Mahara (evaluation + portfolio)
+2027 Q2   v2.1  MRBS + LEIHS (room + equipment booking)
+2027 Q3   v3.0  R/exams + JPlag (digital examination)
+2028 Q1   v4.0  Local LLM + xAPI analytics + F13 sovereign AI assistant
 2028 Q3   v5.0  Multi-tenancy + SATOSA proxy + research data management
 ```
 

@@ -91,10 +91,10 @@ core services universities need — all integrated with openDesk's existing Keyc
 ### Campus Management 🏫
 | Service | Component | Status | Description |
 |:--------|:----------|:------:|:------------|
-| 📖 [HISinOne](https://hisinone.org/) | 🔄 Beta | SOAP API + SSO — courses, enrollments, students |
-| 📖 [HISinOne-Proxy](https://hisinone.org/) | 🔄 Beta | REST API with OAuth 2.0 — courses, enrollments, students |
-| 📖 [Marvin](https://marvin.org/) | 🔄 Beta | REST API with OAuth 2.0 + Webhooks — courses, enrollments, students |
-| 🎯 [Custom](https://example.com/) | 📝 Dev | Follows `docs/integration/campus-management-hooks.md` pattern — build your own adapter |
+| 📖 [HISinOne](https://hisinone.org/) | ✅ Integrated | SOAP API client with mock fallback — courses, enrollments, students |
+| 📖 [HISinOne-Proxy](https://hisinone.org/) | ✅ Integrated | Helm chart deployed — proxy, queue, dedup, listener |
+| 📖 [Marvin](https://marvin.org/) | ✅ Integrated | REST API + OAuth 2.0 + Webhooks — courses, enrollments, students |
+| 🎯 [Custom](https://example.com/) | 🔄 Beta | Follows `docs/integration/campus-management-hooks.md` pattern — build your own adapter |
 | 📋 **Project Management** | [Planka](https://planka.app/) | 🔄 Beta | Kanban boards with OIDC — student projects, research planning |
 | 🎫 **Service Desk** | [Zammad](https://zammad.com/) | 🔄 Beta | Helpdesk with SAML — IT support, multi-channel (email, chat, phone) |
 | 📊 **Surveys** | [LimeSurvey](https://www.limesurvey.org/) | 🔄 Beta | Survey platform — course evaluations, academic research |
@@ -124,6 +124,27 @@ Configure **either** the standard openDesk CE component **or** its education-foc
 All core openDesk CE components remain intact — Element, Nextcloud, Open-Xchange, XWiki, OpenProject,
 Jitsi, CryptPad, Notes, Collabora, and the full Nubus IAM stack. BBB and OpenCloud are optional
 drop-in alternatives, not replacements. This is a **superset** of openDesk CE, not a fork.
+
+### Semester Provisioning API 🔄
+
+Automated semester lifecycle management via FastAPI:
+
+| Module | Description |
+|:-------|:------------|
+| **HISinOne Client** | SOAP API — courses, enrollments, students, schedules, exams, rooms |
+| **Marvin Client** | REST API + OAuth 2.0 — courses, enrollments, webhooks |
+| **ILIAS Client** | REST API + Bearer token — course CRUD, enrollment |
+| **Moodle Client** | REST API + Token — course CRUD, enrollment |
+| **Keycloak Client** | Admin API + OAuth 2.0 — groups, users, course groups |
+| **Schedule Sync** | HISinOne → CalDAV (SOGo), ICS generation (RFC 5545) |
+| **Room Sync** | Room assignments → BBB auto-provisioning, capacity validation |
+| **Exam Sync** | Exam extraction → LMS events, seating plans → OpenCloud |
+| **Enrollment Engine** | Add/withdraw tracking, conflict detection |
+| **Conflict Detector** | Schedule, capacity, double-enrollment conflicts |
+
+All clients support **mock fallback** for development/testing.
+
+**Test Coverage:** 263 unit tests, continuous integration via GitHub Actions.
 
 ---
 
@@ -170,6 +191,7 @@ drop-in alternatives, not replacements. This is a **superset** of openDesk CE, n
 | 💻 Local Development | [docs/local-development.md](./docs/local-development.md) |
 | 🔧 Advanced Customization | [docs/enhanced-configuration.md](./docs/enhanced-configuration.md) |
 | 🔌 External Services (edu) | [docs/external-services.md](./docs/external-services.md) |
+| 🔄 Semester Provisioning API | [docs/semester-provisioning.md](./docs/semester-provisioning.md) |
 | 🔐 User Provisioning | [docs/user-provisioning.md](./docs/user-provisioning.md) |
 | 🌐 DFN-AAI Federation | [docs/dfn-aai-federation.md](./docs/dfn-aai-federation.md) |
 | 🏗️ Architecture | [docs/architecture.md](./docs/architecture.md) |
