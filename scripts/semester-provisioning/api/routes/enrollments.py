@@ -10,7 +10,7 @@ including adding, removing, and listing enrollments.
 """
 
 from datetime import datetime, timezone
-from typing import Optional
+from typing import Any, Optional, Union
 from uuid import uuid4
 from fastapi import APIRouter, HTTPException, Query, status
 
@@ -29,6 +29,13 @@ from api.models.course import Course, CourseStatus, LMSPlatform
 from api.utils.ilias_client import ILIASClient
 from api.utils.moodle_client import MoodleClient
 from api.utils.keycloak_client import KeycloakClient
+from api.utils.enrollment_sync import EnrollmentSyncEngine, SyncResult
+from api.utils.conflict_detector import (
+    ConflictDetector,
+    ScheduleConflict,
+    CapacityConflict,
+    DoubleEnrollment,
+)
 
 router = APIRouter(prefix="/api/v1/enrollments", tags=["enrollments"])
 
@@ -52,6 +59,148 @@ async def _get_lms_client(lms: LMSPlatform):
     if lms == LMSPlatform.ILIAS:
         return ILIASClient()
     return MoodleClient()
+
+
+# --- Sync and Conflict endpoints (must come before /{course_id} routes) ---
+
+
+@router.post(
+    "/sync",
+    response_model=dict[str, Any],
+    status_code=status.HTTP_200_OK,
+    responses={
+        200: {
+            "description": "Enrollments synced successfully / Einschreibungen erfolgreich synchronisiert"
+        },
+        400: {
+            "model": ErrorResponse,
+            "description": "Invalid request data / Ungültige Anfragedaten",
+        },
+        500: {
+            "model": ErrorResponse,
+            "description": "Sync operation failed / Synchronisation fehlgeschlagen",
+        },
+    },
+    summary="Sync enrollments / Einschreibungen synchronisieren",
+    description="Synchronize enrollments from campus management system. / Einschreibungen aus dem Campus-Management-System synchronisieren.",
+)
+async def sync_enrollments(request: dict[str, Any]) -> dict[str, Any]:
+    """
+    Sync enrollments from campus management system (HISinOne or Marvin).
+
+    Args:
+        request: Dictionary with semester_id, source, and optional dry_run keys
+
+    Returns:
+        Dictionary with sync statistics
+    """
+    semester_id = request.get("semester_id")
+    source = request.get("source", "marvin").lower()
+    dry_run = request.get("dry_run", False)
+
+    if not semester_id:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="semester_id is required / semester_id ist erforderlich",
+        )
+
+    if source not in ["hisinone", "marvin"]:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=f"Invalid source: {source}. Must be 'hisinone' or 'marvin' / Ungültige Quelle: {source}. Muss 'hisinone' oder 'marvin' sein",
+        )
+
+    engine = EnrollmentSyncEngine(_courses_db, _enrollments_db)
+    result = await engine.sync_enrollments(semester_id, source, dry_run)
+
+    return {
+        "semester_id": result.semester_id,
+        "source": result.source,
+        "total_courses": result.total_courses,
+        "added": result.added,
+        "withdrawn": result.withdrawn,
+        "unchanged": result.unchanged,
+        "errors": result.errors,
+        "synced_at": result.synced_at.isoformat(),
+    }
+
+
+@router.get(
+    "/conflicts",
+    response_model=dict[str, Any],
+    responses={
+        200: {"description": "Conflicts detected / Konflikte erkannt"},
+        400: {
+            "model": ErrorResponse,
+            "description": "Invalid request data / Ungültige Anfragedaten",
+        },
+    },
+    summary="Detect enrollment conflicts / Einschreibungskonflikte erkennen",
+    description="Detect schedule, capacity, and double enrollment conflicts. / Zeitplan-, Kapazitäts- und Doppelt-Einschreibungskonflikte erkennen.",
+)
+async def detect_conflicts(
+    semester_id: str = Query(..., description="Semester identifier / Semesterkennung"),
+    conflict_type: Optional[str] = Query(
+        None,
+        alias="type",
+        description="Conflict type filter: schedule, capacity, double / Konflikttyp-Filter",
+    ),
+) -> dict[str, Any]:
+    """
+    Detect enrollment conflicts for a semester.
+
+    Args:
+        semester_id: Semester identifier
+        conflict_type: Optional filter for conflict type
+
+    Returns:
+        Dictionary with detected conflicts
+    """
+    detector = ConflictDetector(_courses_db, _enrollments_db)
+
+    conflicts: list[Union[ScheduleConflict, CapacityConflict, DoubleEnrollment]] = []
+
+    if conflict_type is None or conflict_type == "schedule":
+        conflicts.extend(detector.detect_schedule_conflicts(semester_id))
+
+    if conflict_type is None or conflict_type == "capacity":
+        conflicts.extend(detector.detect_capacity_conflicts(semester_id))
+
+    if conflict_type is None or conflict_type == "double":
+        conflicts.extend(detector.detect_double_enrollments(semester_id))
+
+    # Serialize conflicts to dicts
+    serialized = []
+    for conflict in conflicts:
+        conflict_dict = {
+            "conflict_type": conflict.conflict_type.value,
+            "severity": conflict.severity.value,
+            "description": conflict.description,
+        }
+        if isinstance(conflict, ScheduleConflict):
+            conflict_dict["student_id"] = conflict.student_id
+            conflict_dict["course_ids"] = conflict.course_ids
+        elif isinstance(conflict, CapacityConflict):
+            conflict_dict["course_id"] = conflict.course_id
+            conflict_dict["course_title"] = conflict.course_title
+            conflict_dict["expected"] = conflict.expected
+            conflict_dict["actual"] = conflict.actual
+            conflict_dict["overflow"] = conflict.overflow
+        elif isinstance(conflict, DoubleEnrollment):
+            conflict_dict["student_id"] = conflict.student_id
+            conflict_dict["course_id"] = conflict.course_id
+            conflict_dict["course_title"] = conflict.course_title
+            conflict_dict["roles"] = conflict.roles
+        serialized.append(conflict_dict)
+
+    return {
+        "semester_id": semester_id,
+        "total_conflicts": len(serialized),
+        "conflicts": serialized,
+    }
+
+
+# --- Existing enrollment CRUD endpoints (unchanged) ---
 
 
 @router.post(
