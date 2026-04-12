@@ -45,11 +45,11 @@ all integrated with openDesk's existing Keycloak SSO and portal. Deploy everythi
 
 | Language | Source | HTML |
 |:---------|:-------|:-----|
-| 🇩🇪 Deutsch | [Markdown](./docs/presentations/linuxtag-2026/linuxtag-2026-opendesk.md) | [▶ View](https://tobias-weiss-ai-xr.github.io/opendesk-edu/linuxtag-2026/linuxtag-2026-opendesk.html) |
-| 🇬🇧 English | [Markdown](./docs/presentations/linuxtag-2026/linuxtag-2026-opendesk-en.md) | [▶ View](https://tobias-weiss-ai-xr.github.io/opendesk-edu/linuxtag-2026/linuxtag-2026-opendesk-en.html) |
-| 🇫🇷 Français | [Markdown](./docs/presentations/linuxtag-2026/linuxtag-2026-opendesk-fr.md) | [▶ View](https://tobias-weiss-ai-xr.github.io/opendesk-edu/linuxtag-2026/linuxtag-2026-opendesk-fr.html) |
-| 🇪🇸 Español | [Markdown](./docs/presentations/linuxtag-2026/linuxtag-2026-opendesk-es.md) | [▶ View](https://tobias-weiss-ai-xr.github.io/opendesk-edu/linuxtag-2026/linuxtag-2026-opendesk-es.html) |
-| 🇨🇳 中文 | [Markdown](./docs/presentations/linuxtag-2026/linuxtag-2026-opendesk-zh.md) | [▶ View](https://tobias-weiss-ai-xr.github.io/opendesk-edu/linuxtag-2026/linuxtag-2026-opendesk-zh.html) |
+| 🇩🇪 Deutsch | [Markdown](./docs/presentations/linuxtag-2026/linuxtag-2026-opendesk.md) | [▶ View](https://opendesk-edu.github.io/deployment/docs/presentations/linuxtag-2026/linuxtag-2026-opendesk.html) |
+| 🇬🇧 English | [Markdown](./docs/presentations/linuxtag-2026/linuxtag-2026-opendesk-en.md) | [▶ View](https://opendesk-edu.github.io/deployment/docs/presentations/linuxtag-2026/linuxtag-2026-opendesk-en.html) |
+| 🇫🇷 Français | [Markdown](./docs/presentations/linuxtag-2026/linuxtag-2026-opendesk-fr.md) | [▶ View](https://opendesk-edu.github.io/deployment/docs/presentations/linuxtag-2026/linuxtag-2026-opendesk-fr.html) |
+| 🇪🇸 Español | [Markdown](./docs/presentations/linuxtag-2026/linuxtag-2026-opendesk-es.md) | [▶ View](https://opendesk-edu.github.io/deployment/docs/presentations/linuxtag-2026/linuxtag-2026-opendesk-es.html) |
+| 🇨🇳 中文 | [Markdown](./docs/presentations/linuxtag-2026/linuxtag-2026-opendesk-zh.md) | [▶ View](https://opendesk-edu.github.io/deployment/docs/presentations/linuxtag-2026/linuxtag-2026-opendesk-zh.html) |
 
 </div>
 
@@ -181,11 +181,11 @@ drop-in alternatives, not replacements. This is a **superset** of openDesk CE, n
 
 | Event | Language | Source | HTML |
 |:------|:--------|:-------|:-----:|
-| CLT 2026 | 🇩🇪 Deutsch | [Markdown](./docs/presentations/linuxtag-2026/linuxtag-2026-opendesk.md) | [▶ View](https://tobias-weiss-ai-xr.github.io/opendesk-edu/linuxtag-2026/linuxtag-2026-opendesk.html) |
-| CLT 2026 | 🇬🇧 English | [Markdown](./docs/presentations/linuxtag-2026/linuxtag-2026-opendesk-en.md) | [▶ View](https://tobias-weiss-ai-xr.github.io/opendesk-edu/linuxtag-2026/linuxtag-2026-opendesk-en.html) |
-| CLT 2026 | 🇫🇷 Français | [Markdown](./docs/presentations/linuxtag-2026/linuxtag-2026-opendesk-fr.md) | [▶ View](https://tobias-weiss-ai-xr.github.io/opendesk-edu/linuxtag-2026/linuxtag-2026-opendesk-fr.html) |
-| CLT 2026 | 🇪🇸 Español | [Markdown](./docs/presentations/linuxtag-2026/linuxtag-2026-opendesk-es.md) | [▶ View](https://tobias-weiss-ai-xr.github.io/opendesk-edu/linuxtag-2026/linuxtag-2026-opendesk-es.html) |
-| CLT 2026 | 🇨🇳 中文 | [Markdown](./docs/presentations/linuxtag-2026/linuxtag-2026-opendesk-zh.md) | [▶ View](https://tobias-weiss-ai-xr.github.io/opendesk-edu/linuxtag-2026/linuxtag-2026-opendesk-zh.html) |
+| CLT 2026 | 🇩🇪 Deutsch | [Markdown](./docs/presentations/linuxtag-2026/linuxtag-2026-opendesk.md) | [▶ View](https://opendesk-edu.github.io/deployment/docs/presentations/linuxtag-2026/linuxtag-2026-opendesk.html) |
+| CLT 2026 | 🇬🇧 English | [Markdown](./docs/presentations/linuxtag-2026/linuxtag-2026-opendesk-en.md) | [▶ View](https://opendesk-edu.github.io/deployment/docs/presentations/linuxtag-2026/linuxtag-2026-opendesk-en.html) |
+| CLT 2026 | 🇫🇷 Français | [Markdown](./docs/presentations/linuxtag-2026/linuxtag-2026-opendesk-fr.md) | [▶ View](https://opendesk-edu.github.io/deployment/docs/presentations/linuxtag-2026/linuxtag-2026-opendesk-fr.html) |
+| CLT 2026 | 🇪🇸 Español | [Markdown](./docs/presentations/linuxtag-2026/linuxtag-2026-opendesk-es.md) | [▶ View](https://opendesk-edu.github.io/deployment/docs/presentations/linuxtag-2026/linuxtag-2026-opendesk-es.html) |
+| CLT 2026 | 🇨🇳 中文 | [Markdown](./docs/presentations/linuxtag-2026/linuxtag-2026-opendesk-zh.md) | [▶ View](https://opendesk-edu.github.io/deployment/docs/presentations/linuxtag-2026/linuxtag-2026-opendesk-zh.html) |
 
 ---
 
